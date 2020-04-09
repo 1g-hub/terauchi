@@ -1,0 +1,10 @@
+\begin{thebibliography}{1}
+
+\bibitem{DBLP:journals/corr/abs-1901-02985}
+Chenxi Liu, Liang{-}Chieh Chen, Florian Schroff, Hartwig Adam, Wei Hua, Alan~L.
+  Yuille, and Li~Fei{-}Fei.
+\newblock Auto-deeplab: Hierarchical neural architecture search for semantic
+  image segmentation.
+\newblock {\em CoRR}, abs/1901.02985, 2019.
+
+\end{thebibliography}

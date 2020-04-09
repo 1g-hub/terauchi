@@ -1,0 +1,90 @@
+%\documentstyle[epsf,twocolumn]{jarticle}       %LaTeX2e仕様
+%\documentclass[twocolumn]{jarticle}     %pLaTeX2e仕様(platex.exeの場合)
+\documentclass[onecolumn]{ujarticle}     %pLaTeX2e仕様(uplatex.exeの場合)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  基本バージョン
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{-45pt}
+%\setlength{\oddsidemargin}{0cm} 
+\setlength{\oddsidemargin}{-7.5mm}
+%\setlength{\evensidemargin}{0cm} 
+\setlength{\textheight}{24.1cm}
+%setlength{\textheight}{25cm} 
+\setlength{\textwidth}{17.4cm}
+%\setlength{\textwidth}{172mm} 
+\setlength{\columnsep}{11mm}
+
+%\kanjiskip=.07zw plus.5pt minus.5pt
+
+
+% 【節が変わるごとに (1.1)(1.2) … (2.1)(2.2) と数式番号をつけるとき】
+%\makeatletter
+%\renewcommand{\theequation}{%
+%\thesection.\arabic{equation}} %\@addtoreset{equation}{section}
+%\makeatother
+
+%\renewcommand{\arraystretch}{0.95} 行間の設定
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}   %pLaTeX2e仕様(\documentstyle ->\documentclass)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	
+%bibtex用の設定
+%\bibliographystyle{ujarticle} 
+
+\noindent
+
+\hspace{1em}
+2019/2/21
+ゼミ資料
+\hfill
+B3 寺内 光
+
+\vspace{2mm}
+
+\hrule
+
+\begin{center}
+{\Large \bf 進捗報告}
+\end{center}
+
+
+\hrule
+\vspace{3mm}
+
+% ここから 文章 Start!
+\section{現状(JSAI の段階でできていること)}
+	\begin{itemize}
+		\item 4 コマ画像を CAE で分散表現化，および分散表現を用いた識別
+		\item パーツ（口，目）を抜いた画像の生成
+		\item t-SNEによる分散表現のプロット
+	\end{itemize}
+\section{Data Augmentation}
+	CAE の入力に keras の ImageDataGenerator を使って Data Augmentation をしてRandom Forestを用いた識別実験をしてみたが，識別率の向上は見られなかった．識別器側でデータを拡張する手法があればいいかもしれない．
+	また，補完方法には nearest を用いた．
+	
+	\begin{table}[h]
+		\centering
+		\caption{Data Augmentation識別実験}
+		\begin{tabular}{|c|c|} \hline
+			拡張設定&識別率\\ \hline\hline
+			そのまま使用&0.813\\ \hline
+			左右反転&0.771\\ \hline
+			回転( 限度10°)&0.667\\ \hline
+			平行移動( 限度10\% )&0.625\\ \hline
+			上記すべて&0.500\\ \hline
+		\end{tabular}
+	\end{table}
+
+\section{今後の予定}
+	\begin{itemize}
+		\item 他のパーツ抜き画像に対する識別実験
+		\item パーツ抜きの分散表現の変化の観察
+		\item 中間層出力を縮小(画像のリサイズ)
+	\end{itemize}
+
+
+\end{document}

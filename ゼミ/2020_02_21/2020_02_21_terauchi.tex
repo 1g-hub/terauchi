@@ -1,0 +1,148 @@
+%\documentstyle[epsf,twocolumn]{jarticle}       %LaTeX2e仕様
+%\documentclass[twocolumn]{jarticle}     %pLaTeX2e仕様(platex.exeの場合)
+\documentclass[onecolumn]{ujarticle}   %pLaTeX2e仕様(uplatex.exeの場合)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  基本バージョン
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{-45pt}
+%\setlength{\oddsidemargin}{0cm}
+\setlength{\oddsidemargin}{-7.5mm}
+%\setlength{\evensidemargin}{0cm}
+\setlength{\textheight}{24.1cm}
+%setlength{\textheight}{25cm}
+\setlength{\textwidth}{17.4cm}
+%\setlength{\textwidth}{172mm}
+\setlength{\columnsep}{11mm}
+
+%\kanjiskip=.07zw plus.5pt minus.5pt
+
+
+% 【節が変わるごとに (1.1)(1.2) … (2.1)(2.2) と数式番号をつけるとき】
+%\makeatletter
+%\renewcommand{\theequation}{%
+%\thesection.\arabic{equation}} %\@addtoreset{equation}{section}
+%\makeatother
+
+%\renewcommand{\arraystretch}{0.95} 行間の設定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{graphicx}   %pLaTeX2e仕様(\documentstyle ->\documentclass)
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{ulem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+	%bibtex用の設定
+	%\bibliographystyle{ujarticle}
+	% \twocolumn[
+	\noindent
+
+	\hspace{1em}
+	2020 年 02 月 21 日
+	ゼミ資料
+	\hfill
+	M1 寺内 光
+
+	\vspace{2mm}
+
+	\hrule
+
+	\begin{center}
+		{\Large \bf 進捗報告}
+	\end{center}
+
+
+	\hrule
+	\vspace{3mm}
+	% ]
+
+	% ここから 文章 Start!
+	\section{今週やったこと}
+	\begin{itemize}{
+		\item{タイトル推定}
+	}
+	\end{itemize}
+
+	\subsection{タイトル推定}
+	漫画の画像と台詞それぞれの分散表現からタイトルを推定した．
+	表 \ref{tab:result_imgtitle}, \ref{tab:result_seriftitle}, \ref{tab:result_concattitle} にそれぞれの実験結果を示す(train:val=9:1)．
+	エポックは100, 損失関数は Class Balanced Loss を用いた($\beta=0.999$)．Class Balanced Loss は基本的にはクラスのサンプル数の逆比で重みをかけるのと同様の手法だが，その際にクラスのサンプル数としてデータの本質的な個数 $E_{n}$ を用いる．下に式を示す．
+
+	\begin{equation}{
+		E_{n_{y}} = \frac{(1-\beta^{n_{y}})}{1-\beta}
+	}\end{equation}
+
+	また，Focal Loss も試したが精度はそこまで変わらなかった．
+
+	\begin{table}[h]
+		\vspace{-3mm}
+		\centering
+		\caption{タイトル推定結果(画像)}
+		\label{tab:result_imgtitle}
+		\begin{tabular}{|c|c|c|c|c|} \hline
+			クラス&Precision&Recall&F-1&support\\ \hline\hline
+			TetsuSan&0.88&0.64&0.74&58\\ \hline
+			YouchienBoueigumi&0.46&0.53&0.49&36\\ \hline
+			OL\_Lunch&0.62&0.61&0.62&83\\ \hline
+			KoukouNoHitotachi&0.72&0.83&0.77&93\\ \hline
+			4Scene-Shonen&0.33&0.25&0.29&8\\ \hline
+			-&-&-&-&-\\ \hline
+			accuracy&&&0.6691&278\\ \hline
+			macro avg&0.60&0.57&0.58&278\\ \hline
+			weighted avg&0.68&0.67&0.67&278\\ \hline
+		\end{tabular}
+	\end{table}
+
+	\begin{table}[h]
+		\vspace{-3mm}
+		\centering
+		\caption{タイトル推定結果(台詞)}
+		\label{tab:result_seriftitle}
+		\begin{tabular}{|c|c|c|c|c|} \hline
+			クラス&Precision&Recall&F-1&support\\ \hline\hline
+			TetsuSan&0.57&0.80&0.67&51\\ \hline
+			YouchienBoueigumi&0.59&0.61&0.60&36\\ \hline
+			OL\_Lunch&0.74&0.55&0.63&82\\ \hline
+			KoukouNoHitotachi&0.74&0.71&0.73&91\\ \hline
+			4Scene-Shonen&0.20&0.25&0.22&8\\ \hline
+			-&-&-&-&-\\ \hline
+			accuracy&&&0.6530&268\\ \hline
+			macro avg&0.57&0.59&0.57&268\\ \hline
+			weighted avg&0.67&0.65&0.65&268\\ \hline
+		\end{tabular}
+	\end{table}
+
+	\begin{table}[h]
+		\vspace{-3mm}
+		\centering
+		\caption{タイトル推定結果(画像+台詞)}
+		\label{tab:result_concattitle}
+		\begin{tabular}{|c|c|c|c|c|} \hline
+			クラス&Precision&Recall&F-1&support\\ \hline\hline
+			TetsuSan&0.90&0.73&0.80&51\\ \hline
+			YouchienBoueigumi&0.81&0.58&0.68&36\\ \hline
+			OL\_Lunch&0.71&0.79&0.75&82\\ \hline
+			KoukouNoHitotachi&0.82&0.91&0.86&91\\ \hline
+			4Scene-Shonen&0.44&0.50&0.47&8\\ \hline
+			-&-&-&-&-\\ \hline
+			accuracy&&&0.7836&268\\ \hline
+			macro avg&0.74&0.70&0.71&268\\ \hline
+			weighted avg&0.79&0.78&0.78&268\\ \hline
+		\end{tabular}
+	\end{table}
+
+	学習自体は10エポックくらいで収束していた．また，画像と台詞を単に concat しただけでそこそこの精度向上が見られることがわかる．
+	また，データ数の少ない4コマ漫画ストーリーデータセットも損失関数をいじったことで None にならずにしっかりと精度が出ていることがわかる．
+
+	\section{来週の予定}\noindent
+	論文書いていきたいが...
+	%
+	% \bibliographystyle{unsrt}
+	% \bibliography{2020_01_10_terauchi}
+
+\end{document}

@@ -1,0 +1,78 @@
+%\documentstyle[epsf,twocolumn]{jarticle}       %LaTeX2e仕様
+%\documentclass[twocolumn]{jarticle}     %pLaTeX2e仕様(platex.exeの場合)
+\documentclass[onecolumn]{ujarticle}     %pLaTeX2e仕様(uplatex.exeの場合)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  基本バージョン
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{-45pt}
+%\setlength{\oddsidemargin}{0cm} 
+\setlength{\oddsidemargin}{-7.5mm}
+%\setlength{\evensidemargin}{0cm} 
+\setlength{\textheight}{24.1cm}
+%setlength{\textheight}{25cm} 
+\setlength{\textwidth}{17.4cm}
+%\setlength{\textwidth}{172mm} 
+\setlength{\columnsep}{11mm}
+
+%\kanjiskip=.07zw plus.5pt minus.5pt
+
+
+% 【節が変わるごとに (1.1)(1.2) … (2.1)(2.2) と数式番号をつけるとき】
+%\makeatletter
+%\renewcommand{\theequation}{%
+%\thesection.\arabic{equation}} %\@addtoreset{equation}{section}
+%\makeatother
+
+%\renewcommand{\arraystretch}{0.95} 行間の設定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{graphicx}   %pLaTeX2e仕様(\documentstyle ->\documentclass)
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{subcaption}
+\usepackage{multirow}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	
+	%bibtex用の設定
+	%\bibliographystyle{ujarticle} 
+	\twocolumn[
+	\noindent
+	
+	\hspace{1em}
+	2019 年 7 月 19 日
+	ゼミ資料
+	\hfill
+	M1 寺内 光
+	
+	\vspace{2mm}
+	
+	\hrule
+	
+	\begin{center}
+		{\Large \bf 進捗報告}
+	\end{center}
+	
+	
+	\hrule
+	\vspace{3mm}
+	]
+	% ここから 文章 Start!
+	\section{今週やったこと}
+	先週に引き続き Semantic Segmentation 関連の論文を読んでまとめた．はやく実装のほうに移りたい...
+	
+	\section{SegNet \cite{badrinarayanan2015segnet2}}
+	FCN で最後の全結合層を Convolution 層にしていたところを省略して省メモリおよび高速化を目指したモデル．結局最後のほうの特徴マップの情報って粗すぎて Semantic segmentation であんまり有効に使われてないよねというモチベーション．プーリング層によって情報が欠落する問題には，Encoder のプーリングでどの index のものをとってきたかを記憶しておき，Decoder でその情報を復元することによって対策している．前処理としては局所コントラスト正規化 (LCN) を行っている．Encoder と Decoder のペアを 1 つずつTuning する Layer-Wise Pretraining の手法を用いている．使用しているデータセットは CamVid \cite{BrostowSFC:ECCV08, BrostowFC:PRL2008}, KITTI \cite{Geiger2013IJRR}, NYU \cite{Silberman2011IndoorSS}.
+	
+	\section{U-Net \cite{DBLP:journals/corr/RonnebergerFB15}}
+	医療用のセグメンテーションのために生み出されたモデル．FCN を拡張して作成しており，Encoder と Decoder のモデル構造が U の形をしているためこの名前になっている．U-Net においても skip 構造を採用しており，U-Net ではチャネルに対する連結をしている．細胞をアノテーションしたデータセット \cite{10.1093/bioinformatics/btu080} を用いている．クラスとしては細胞と背景の 2 クラスであり，指標として IoU やハミング距離を用いている．データオーギュメンテーションはシフトや回転の他に弾性変形を用いている．
+	
+
+	\section{来週以降のタスク}
+	引き続き論文を読み進める．あと DeepLab くらいは読みたい．
+	ある程度読めたら github にいろいろなフレームワークでの実装が紹介されているのでひとまず動かせるかどうか試してみる．
+	
+	% 参考文献リスト
+	\bibliographystyle{unsrt}
+	\bibliography{2019_07_19_terauchi}
+\end{document}

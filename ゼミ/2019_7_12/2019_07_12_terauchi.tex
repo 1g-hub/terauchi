@@ -1,0 +1,108 @@
+%\documentstyle[epsf,twocolumn]{jarticle}       %LaTeX2e仕様
+%\documentclass[twocolumn]{jarticle}     %pLaTeX2e仕様(platex.exeの場合)
+\documentclass[onecolumn]{ujarticle}     %pLaTeX2e仕様(uplatex.exeの場合)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  基本バージョン
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{-45pt}
+%\setlength{\oddsidemargin}{0cm} 
+\setlength{\oddsidemargin}{-7.5mm}
+%\setlength{\evensidemargin}{0cm} 
+\setlength{\textheight}{24.1cm}
+%setlength{\textheight}{25cm} 
+\setlength{\textwidth}{17.4cm}
+%\setlength{\textwidth}{172mm} 
+\setlength{\columnsep}{11mm}
+
+%\kanjiskip=.07zw plus.5pt minus.5pt
+
+
+% 【節が変わるごとに (1.1)(1.2) … (2.1)(2.2) と数式番号をつけるとき】
+%\makeatletter
+%\renewcommand{\theequation}{%
+%\thesection.\arabic{equation}} %\@addtoreset{equation}{section}
+%\makeatother
+
+%\renewcommand{\arraystretch}{0.95} 行間の設定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{graphicx}   %pLaTeX2e仕様(\documentstyle ->\documentclass)
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{subcaption}
+\usepackage{multirow}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	
+	%bibtex用の設定
+	%\bibliographystyle{ujarticle} 
+	\twocolumn[
+	\noindent
+	
+	\hspace{1em}
+	2019 年 7 月 12 日
+	ゼミ資料
+	\hfill
+	M1 寺内 光
+	
+	\vspace{2mm}
+	
+	\hrule
+	
+	\begin{center}
+		{\Large \bf 進捗報告}
+	\end{center}
+	
+	
+	\hrule
+	\vspace{3mm}
+	]
+	% ここから 文章 Start!
+	\section{今週やったこと}
+	Semantic Segmentation 関連の論文を読んでまとめた．各手法のまとめの前に Semantic Segmentation で用いられる評価指標を説明する．
+	\subsection{pixel accuracy}
+	1 枚の画像に対する正解画素の比率．$N$ はピクセルの数．$n_{ij}$ はクラス $i$を $j$ と推定した個数．
+	\begin{equation}
+	\frac{1}{N}\sum_{i=0}^{k}n_{ii}
+	\end{equation}
+	
+	\subsection{mean accuracy}
+	各クラスの recall をクラス数で平均したもの．$k$ はクラス数．$t_{i}$ はクラス $i$ の個数．
+	\begin{equation}
+	\frac{1}{k}\sum_{i=0}^{k}\frac{n_{ii}}{t_{i}}
+	\end{equation}
+	
+	\subsection{mean IU(IoU))}
+	IoU のクラス平均．
+	\begin{equation}
+	\frac{1}{k}\sum_{i=0}^{k}\frac{n_{ii}}{(t_{i}+\sum_{j=0}^{k}n_{ji}-n_{ii})}
+	\end{equation}
+	
+	また，\\
+	GT(Ground Truth): 正しいクラス $i$ のピクセル\\
+	PR(Prediction): $i$ と予測したピクセル\\
+	TP(True Positive): 正しく $i$ と推定されたピクセル
+	
+	とすると，\\
+	
+	IoU = $\frac{\rm{TP}}{\rm{GT}+\rm{PR}-\rm{TP}}$\\
+	
+	とも表すことができる．
+	
+	\subsection{frequency weighted IU}
+	クラス間の個数に差がある場合を考慮した IoU.
+	\begin{equation}
+	\frac{1}{N}\sum_{i=0}^{k}\frac{t_{i}n_{ii}}{(t_{i}+\sum_{j=0}^{k}n_{ji}-n_{ii})}
+	\end{equation}
+	
+	\section{Fully Convolutional Networks for Semantic Segmentation(FCN) \cite{DBLP:journals/corr/LongSD14}}
+	すべてが Convolution 層によって構成されている(VGG, AlexNet, GoogLeNet のモデルの全結合層をConvolution 層にしている). ローカルの情報とグローバルな情報を保つため(pixel の情報が重要であるため)に skip 構造を採用している． 上層から skip してきた複数の出力を最終層で結合する． skip においては結合先でチャネルに対する和をとっている．用いているデータセットは PASCAL VOC \cite{Everingham10}, NYUDv2 \cite{Silberman:ECCV12}, SIFT Flow \cite{Liu:2011:SFD:1963053.1963093} の 3 種類．
+
+	\section{来週以降のタスク}
+	引き続き論文を読み進める．
+	ある程度読めたら github にいろいろなフレームワークでの実装が紹介されているのでひとまず動かせるかどうか試してみる．
+	
+	% 参考文献リスト
+	\bibliographystyle{unsrt}
+	\bibliography{2019_07_12_terauchi}
+\end{document}

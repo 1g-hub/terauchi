@@ -1,0 +1,81 @@
+%\documentstyle[epsf,twocolumn]{jarticle}       %LaTeX2e仕様
+%\documentclass[twocolumn]{jarticle}     %pLaTeX2e仕様(platex.exeの場合)
+\documentclass[onecolumn]{ujarticle}   %pLaTeX2e仕様(uplatex.exeの場合)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  基本バージョン
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{-45pt}
+%\setlength{\oddsidemargin}{0cm} 
+\setlength{\oddsidemargin}{-7.5mm}
+%\setlength{\evensidemargin}{0cm} 
+\setlength{\textheight}{24.1cm}
+%setlength{\textheight}{25cm} 
+\setlength{\textwidth}{17.4cm}
+%\setlength{\textwidth}{172mm} 
+\setlength{\columnsep}{11mm}
+
+%\kanjiskip=.07zw plus.5pt minus.5pt
+
+
+% 【節が変わるごとに (1.1)(1.2) … (2.1)(2.2) と数式番号をつけるとき】
+%\makeatletter
+%\renewcommand{\theequation}{%
+%\thesection.\arabic{equation}} %\@addtoreset{equation}{section}
+%\makeatother
+
+%\renewcommand{\arraystretch}{0.95} 行間の設定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{graphicx}   %pLaTeX2e仕様(\documentstyle ->\documentclass)
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{url}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	
+	%bibtex用の設定
+	%\bibliographystyle{ujarticle} 
+	\noindent
+	
+	\hspace{1em}
+	2019 年 8 月 9 日
+	ゼミ資料
+	\hfill
+	M1 寺内 光
+	
+	\vspace{2mm}
+	
+	\hrule
+	
+	\begin{center}
+		{\Large \bf 進捗報告}
+	\end{center}
+	
+	
+	\hrule
+	\vspace{3mm}
+	
+	% ここから 文章 Start!
+	\section{今週やったこと}
+	google の official 版 DeepLab v3+ のサンプル \cite{deeplabv3_official} を動かせないか奮闘中．
+	実装は \cite{cite1, cite2, cite3} を参考にしています．
+	まずは PASCAL VOC 2012 を用いてサンプルが動作するか確かめたい．tensorflow の実装が理解できるかどうかはやってみないとわからないが...       
+	
+	\section{サンプルデータセット入手}
+	PASCAL VOC 2012 \cite{pascal-voc-2012} を入手して整形する bash ファイルがエラーを吐く問題にずっと悩まされていました．Ubuntu の bash と dash の違いが原因っぽい...？とにかくデータセットは別で入手したので整形を今やっているところです．この辺りは上のサイトに丁寧に書いてあるので読めばわかりそう.
+	                                                                                                                                             
+
+	\section{夏休みのスケジュール}\noindent
+	帰省 8/12-8/16\\
+	日立インターン(東京) 8/21-9/12\\
+	GREC パワポ等準備 9/13-9/18\\
+	GREC(オーストラリア) 9/19(前日)-9/22\\
+	の予定です．またインターンの不在に関しては周知します．
+	
+	% 参考文献リスト
+	\bibliographystyle{unsrt}
+	\bibliography{2019_8_9_terauchi}
+\end{document}

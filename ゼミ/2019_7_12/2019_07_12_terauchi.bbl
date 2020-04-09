@@ -1,0 +1,25 @@
+\begin{thebibliography}{1}
+
+\bibitem{DBLP:journals/corr/LongSD14}
+Jonathan Long, Evan Shelhamer, and Trevor Darrell.
+\newblock Fully convolutional networks for semantic segmentation.
+\newblock {\em CoRR}, abs/1411.4038, 2014.
+
+\bibitem{Everingham10}
+M.~Everingham, L.~Van~Gool, C.~K.~I. Williams, J.~Winn, and A.~Zisserman.
+\newblock The pascal visual object classes (voc) challenge.
+\newblock {\em International Journal of Computer Vision}, 88(2):303--338, June
+  2010.
+
+\bibitem{Silberman:ECCV12}
+Pushmeet~Kohli Nathan~Silberman, Derek~Hoiem and Rob Fergus.
+\newblock Indoor segmentation and support inference from rgbd images.
+\newblock In {\em ECCV}, 2012.
+
+\bibitem{Liu:2011:SFD:1963053.1963093}
+Ce~Liu, Jenny Yuen, and Antonio Torralba.
+\newblock Sift flow: Dense correspondence across scenes and its applications.
+\newblock {\em IEEE Trans. Pattern Anal. Mach. Intell.}, 33(5):978--994, May
+  2011.
+
+\end{thebibliography}

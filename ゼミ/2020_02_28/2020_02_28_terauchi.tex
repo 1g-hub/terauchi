@@ -1,0 +1,148 @@
+%\documentstyle[epsf,twocolumn]{jarticle}       %LaTeX2e仕様
+%\documentclass[twocolumn]{jarticle}     %pLaTeX2e仕様(platex.exeの場合)
+\documentclass[onecolumn]{ujarticle}   %pLaTeX2e仕様(uplatex.exeの場合)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  基本バージョン
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{-45pt}
+%\setlength{\oddsidemargin}{0cm}
+\setlength{\oddsidemargin}{-7.5mm}
+%\setlength{\evensidemargin}{0cm}
+\setlength{\textheight}{24.1cm}
+%setlength{\textheight}{25cm}
+\setlength{\textwidth}{17.4cm}
+%\setlength{\textwidth}{172mm}
+\setlength{\columnsep}{11mm}
+
+%\kanjiskip=.07zw plus.5pt minus.5pt
+
+
+% 【節が変わるごとに (1.1)(1.2) … (2.1)(2.2) と数式番号をつけるとき】
+%\makeatletter
+%\renewcommand{\theequation}{%
+%\thesection.\arabic{equation}} %\@addtoreset{equation}{section}
+%\makeatother
+
+%\renewcommand{\arraystretch}{0.95} 行間の設定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{graphicx}   %pLaTeX2e仕様(\documentstyle ->\documentclass)
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{ulem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+	%bibtex用の設定
+	%\bibliographystyle{ujarticle}
+	% \twocolumn[
+	\noindent
+
+	\hspace{1em}
+	2020 年 02 月 28 日
+	ゼミ資料
+	\hfill
+	M1 寺内 光
+
+	\vspace{2mm}
+
+	\hrule
+
+	\begin{center}
+		{\Large \bf 進捗報告}
+	\end{center}
+
+
+	\hrule
+	\vspace{3mm}
+	% ]
+
+	% ここから 文章 Start!
+	\section{今週やったこと}
+	\begin{itemize}{
+		\item{LSTMを用いた台詞および画像の入れ替え識別}
+	}
+	\end{itemize}
+
+	\subsection{タイトル推定}
+	4コマ漫画の4コマ目だけを入れ替えて入れ替えた or 入れ替えてないのクラス識別をした．
+	用意したクラスは最後の4コマ目に対して(0)正解(入れ替えていない) (1)同じタイトルの違う台詞 (2)違うタイトルの違う台詞
+	の3クラス．4つめのクラスとしてランダムノイズをおいていたが識別率がさすがに100％だったため消去．
+	この識別実験を(一)台詞を入れ替える(二)画像を入れ替える(三)両方入れ替えるの3つについて実施した．
+	表 \ref{tab:result_serifchange}, \ref{tab:result_imagechange}, \ref{tab:result_bothchange} にそれぞれの実験結果を示す(train:val=9:1)．
+	エポックは100, 損失関数は Class Entropy Loss を用いた．
+	また，モデル構造は 2 つの LSTM の最終層を concat して MLP にかける形となっている(画像と台詞を concat して1つの LSTM 構造のモデルも試したがそんなに識別率は変わらなかった．)．
+
+	\begin{table}[h]
+		\vspace{-3mm}
+		\centering
+		\caption{入れ替え推定結果(台詞入れ替え)}
+		\label{tab:result_serifchange}
+		\begin{tabular}{|c|c|c|c|c|} \hline
+			クラス&Precision&Recall&F-1&support\\ \hline\hline
+			0&0.40&0.75&0.52&68\\ \hline
+			1&0.45&0.13&0.20&68\\ \hline
+			2&0.54&0.44&0.48&68\\ \hline
+			-&-&-&-&-\\ \hline
+			accuracy&&&0.4412&204\\ \hline
+			macro avg&0.46&0.44&0.40&204\\ \hline
+		\end{tabular}
+	\end{table}
+
+	\begin{table}[h]
+		\vspace{-3mm}
+		\centering
+		\caption{入れ替え推定結果(画像入れ替え)}
+		\label{tab:result_imagechange}
+		\begin{tabular}{|c|c|c|c|c|} \hline
+			クラス&Precision&Recall&F-1&support\\ \hline\hline
+			0&0.34&0.32&0.33&68\\ \hline
+			1&0.38&0.38&0.38&68\\ \hline
+			2&0.53&0.56&0.54&68\\ \hline
+			-&-&-&-&-\\ \hline
+			accuracy&&&0.4200&204\\ \hline
+			macro avg&0.42&0.42&0.42&204\\ \hline
+		\end{tabular}
+	\end{table}
+
+	\begin{table}[h]
+		\vspace{-3mm}
+		\centering
+		\caption{入れ替え推定結果(画像，台詞入れ替え)}
+		\label{tab:result_bothchange}
+		\begin{tabular}{|c|c|c|c|c|} \hline
+			クラス&Precision&Recall&F-1&support\\ \hline\hline
+			0&0.43&0.43&0.43&68\\ \hline
+			1&0.50&0.51&0.51&68\\ \hline
+			2&0.58&0.56&0.57&68\\ \hline
+			-&-&-&-&-\\ \hline
+			accuracy&&&0.5000&204\\ \hline
+			macro avg&0.50&0.50&0.50&204\\ \hline
+		\end{tabular}
+	\end{table}
+
+	ベースライン 0.33 に対して 0.42-0.5 出てるのでまだなんとか...
+	画像と台詞の両方を変えた識別率が上がったのは狙い通りという感じ．
+
+	また，クラス 0(正解) とクラス 2(タイトル違うものから持ってくる) だけの 2 クラス識別も試してみたが，ほとんど精度出ず(0.6くらい)．画像と台詞だけのタイトル識別が 5 クラス識別で 0.6 くらい出てたしもう少し上がってもいいような気もするが，1 vs rest の構造とタイトルをランダムに入れ替えているところに問題があるのだろうか...？
+
+	\section{今後の方針}\noindent
+	ひとまずJSAIをこの3クラス識別の実験内容をベースに書きたい．本番までにまだまだやれることはありそう．
+	現段階であと確認したい事項としては
+	\begin{itemize}{
+			\item{画像，台詞だけのLSTMでの破綻識別}
+			\item{一番入れ替えると識別率が上がるコマはどれか調べる}
+			\item{ランダムに入れ替えているところのタイトル間の偏りをなくす}
+			\item{誤識別したデータの確認(この識別率の段階でやることではないような気も)}
+			\item{end to end なモデルで識別タスクを行う(Future Work)}
+	}\end{itemize}
+	など．
+	%
+	% \bibliographystyle{unsrt}
+	% \bibliography{2020_01_10_terauchi}
+
+\end{document}

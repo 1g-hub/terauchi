@@ -1,0 +1,27 @@
+\begin{thebibliography}{1}
+
+\bibitem{deeplabv3_official}
+{deeplabv3}.
+\newblock \url{https://github.com/tensorflow/models}.
+
+\bibitem{cite1}
+{最強のSemantic Segmentation、Deep lab v3 plus}.
+\newblock \url{https://qiita.com/harmegiddo/items/b11decca0769fc108ec9}.
+
+\bibitem{cite2}
+{DeepLab
+  v3+でオリジナルデータを学習してセグメンテーションできるようにする}.
+\newblock \url{https://qiita.com/mine820/items/7a08fad3847f2981cb01}.
+
+\bibitem{cite3}
+{deeplab v3+でオリジナルデータを学習させる}.
+\newblock \url{https://azurex.hatenablog.com/entry/2019/03/18/185059}.
+
+\bibitem{pascal-voc-2012}
+M.~Everingham, L.~Van~Gool, C.~K.~I. Williams, J.~Winn, and A.~Zisserman.
+\newblock The {PASCAL} {V}isual {O}bject {C}lasses {C}hallenge 2012 {(VOC2012)}
+  {R}esults.
+\newblock
+  http://www.pascal-network.org/challenges/VOC/voc2012/workshop/index.html.
+
+\end{thebibliography}
