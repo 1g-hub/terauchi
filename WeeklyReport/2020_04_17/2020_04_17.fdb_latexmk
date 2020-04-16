@@ -1,20 +1,22 @@
 # Fdb version 3
-["bibtex 2020_04_17"] 1587058743 "2020_04_17.aux" "2020_04_17.bbl" "2020_04_17" 1587058745
+["bibtex 2020_04_17"] 1587078059 "2020_04_17.aux" "2020_04_17.bbl" "2020_04_17" 1587078122
   "/usr/local/texlive/2020/texmf-dist/bibtex/bst/base/unsrt.bst" 1292289607 18030 1376b4b231b50c66211e47e42eda2875 ""
-  "2019_11_15_terauchi.bib" 0 -1 0 ""
-  "2020_04_17.aux" 1587058744 634 83104a473e1c7baf1a0a2d1a76be61b3 "latex"
+  "2020_04_17.aux" 1587078060 668 2e06f1cafdbb6859822da582f5941058 "latex"
+  "2020_04_17.bib" 1587078024 128 232ec91c4c27200c40b677d66614a23c ""
   (generated)
-  "2020_04_17.blg"
   "2020_04_17.bbl"
-["dvipdf"] 1587058744 "2020_04_17.dvi" "2020_04_17.pdf" "2020_04_17" 1587058745
-  "2020_04_17.dvi" 1587058744 3164 17851ef9a1d94dcaf382b6e1a8e96864 "latex"
+  "2020_04_17.blg"
+["dvipdf"] 1587078060 "2020_04_17.dvi" "2020_04_17.pdf" "2020_04_17" 1587078122
+  "2020_04_17.dvi" 1587078060 3660 c2599bfa6e1449a014fcca73f36b5235 "latex"
   (generated)
   "2020_04_17.pdf"
-["latex"] 1587058743 "2020_04_17.tex" "2020_04_17.dvi" "2020_04_17" 1587058745
+["latex"] 1587078059 "2020_04_17.tex" "2020_04_17.dvi" "2020_04_17" 1587078122
   "/usr/local/texlive/2020/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
+  "/usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1136768653 1324 c910af8c371558dc20f2d7822f66fe64 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmr12.tfm" 1136768653 1288 655e228510b4c2a1abe905c368440826 ""
+  "/usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm" 1136768653 768 1321e9409b4137d6fb428ac9dc956269 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/public/latex-fonts/lasy6.tfm" 1136768653 520 4889cce2180234b97cad636b6039c722 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisg-h.tfm" 1522271273 812 52bd92aa20c58a398601cda6dd62c8d1 ""
   "/usr/local/texlive/2020/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisg-v.tfm" 1522271273 536 5f2475e9deb198c23894800d3c5eed00 ""
@@ -43,10 +45,10 @@
   "/usr/local/texlive/2020/texmf-dist/web2c/texmf.cnf" 1583102494 39451 60d7debd9ef8ece44cbe965493576c2d ""
   "/usr/local/texlive/2020/texmf-var/web2c/euptex/uplatex.fmt" 1586957898 2442204 e056ce79c37b00fe83766d14e59e8bd6 ""
   "/usr/local/texlive/2020/texmf.cnf" 1586288231 577 d60164b4589a341208aff7a667fbbdcb ""
-  "2020_04_17.aux" 1587058744 634 83104a473e1c7baf1a0a2d1a76be61b3 "latex"
-  "2020_04_17.bbl" 0 -1 0 "bibtex 2020_04_17"
-  "2020_04_17.tex" 1587058732 3602 c44623377961a36cd12b3ab90f29662d ""
+  "2020_04_17.aux" 1587078060 668 2e06f1cafdbb6859822da582f5941058 "latex"
+  "2020_04_17.bbl" 1587078059 163 6a06f46bbf38913059bac6993e841a46 "bibtex 2020_04_17"
+  "2020_04_17.tex" 1587078056 3883 a840314ff9e2cc1a0d70032231b3774d ""
   (generated)
+  "2020_04_17.dvi"
   "2020_04_17.aux"
   "2020_04_17.log"
-  "2020_04_17.dvi"

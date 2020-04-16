@@ -60,5 +60,10 @@ INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
 INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+INPUT 2020_04_17.bbl
+INPUT 2020_04_17.bbl
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT /usr/local/texlive/2020/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 OUTPUT 2020_04_17.dvi
 INPUT 2020_04_17.aux

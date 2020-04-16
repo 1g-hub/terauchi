@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.8.3-u1.26-191112-2.6 (utf8.uptex) (TeX Live 2020) (preloaded format=uplatex 2020.4.15)  17 APR 2020 02:39
+This is e-upTeX, Version 3.14159265-p3.8.3-u1.26-191112-2.6 (utf8.uptex) (TeX Live 2020) (preloaded format=uplatex 2020.4.15)  17 APR 2020 08:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -217,18 +217,21 @@ LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <12> not available
 (Font)              Font shape `JY2/gt/m/n' tried instead on input line 68.
 LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
 (Font)              scaled to size 11.54663pt on input line 68.
-
-No file 2020_04_17.bbl.
-[1
+ (./2020_04_17.bbl
+LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
+(Font)              scaled to size 6.73553pt on input line 5.
+LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
+(Font)              scaled to size 4.8111pt on input line 5.
+) [1
 
 ] (./2020_04_17.aux) ) 
 Here is how much of TeX's memory you used:
- 2801 strings out of 481112
- 42704 string characters out of 5916845
- 290468 words of memory out of 5000000
- 18885 multiletter control sequences out of 15000+600000
- 537204 words of font info for 52 fonts, out of 8000000 for 9000
+ 2809 strings out of 481112
+ 42797 string characters out of 5916845
+ 290471 words of memory out of 5000000
+ 18889 multiletter control sequences out of 15000+600000
+ 537826 words of font info for 55 fonts, out of 8000000 for 9000
  929 hyphenation exceptions out of 8191
- 48i,4n,46p,1065b,207s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 48i,4n,46p,1063b,344s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on 2020_04_17.dvi (1 page, 3164 bytes).
+Output written on 2020_04_17.dvi (1 page, 3660 bytes).
