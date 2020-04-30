@@ -1,0 +1,85 @@
+%\documentstyle[epsf,twocolumn]{jarticle}       %LaTeX2e仕様
+%\documentclass[twocolumn]{jarticle}     %pLaTeX2e仕様(platex.exeの場合)
+\documentclass[onecolumn]{ujarticle}   %pLaTeX2e仕様(uplatex.exeの場合)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  基本バージョン
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{-45pt}
+%\setlength{\oddsidemargin}{0cm}
+\setlength{\oddsidemargin}{-7.5mm}
+%\setlength{\evensidemargin}{0cm}
+\setlength{\textheight}{24.1cm}
+%setlength{\textheight}{25cm}
+\setlength{\textwidth}{17.4cm}
+%\setlength{\textwidth}{172mm}
+\setlength{\columnsep}{11mm}
+
+%\kanjiskip=.07zw plus.5pt minus.5pt
+
+
+% 【節が変わるごとに (1.1)(1.2) … (2.1)(2.2) と数式番号をつけるとき】
+%\makeatletter
+%\renewcommand{\theequation}{%
+%\thesection.\arabic{equation}} %\@addtoreset{equation}{section}
+%\makeatother
+
+%\renewcommand{\arraystretch}{0.95} 行間の設定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{graphicx}   %pLaTeX2e仕様(\documentstyle ->\documentclass)
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{url}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+	%bibtex用の設定
+	%\bibliographystyle{ujarticle}
+	\noindent
+
+	\hspace{1em}
+	2020 年 5 月 1 日
+	ゼミ資料
+	\hfill
+	M2 寺内 光
+
+	\vspace{2mm}
+
+	\hrule
+
+	\begin{center}
+		{\Large \bf 進捗報告}
+	\end{center}
+
+
+	\hrule
+	\vspace{3mm}
+
+	% ここから 文章 Start!
+	\section{今週やったこと}
+	\begin{itemize}{
+		\item{cifer-10 の Augmentation 操作と GA の紐付け}
+		\item{論文調査(Fast AutoAugment)}
+	}\end{itemize}
+
+	\subsection{cifer-10のAugmentとGAの紐付け}
+	cifer-10 データセットに対してクラス分類をする際の Data Augmentation の GA を使った自動最適化の実験のスクリプトを実装していた．モデルとしては事前学習済み ResNet を用いている．実装している操作は ShearX/Y, TranslateX/Y, Rotate, AutoContrast, Invert, Equalize, Solarize, Posterize, Contrast, Color, Brightness, Sharpness, Cutout の15種．
+	GA の遺伝子にはひとまず各操作を使うか使わないかのバイナリしか持たせていないが，これに操作の順列および確率と強度を扱えるような枠組みを実装したいと考えている．
+
+	また，DEAP のオペレーション周りの拡張についても一応試してみた．交叉について一様交叉の枠組みを用いてガウス分布からサンプリングした値としきい値を用いて交叉するように改変した．これについては特に本質的な意味はなく，正しく拡張オペレーションが動いたという確認だけ．
+	前回同様レポは\url{https://github.com/1g-hub/DEAP_CLS}に．
+
+	\subsection{論文調査(Fast AutoAugment)}
+	前回紹介した強化学習を用いた Data Augmentation の自動化の研究 AutoAugment を高速化する論文を発見したので読んだ\cite{DBLP:journals/corr/abs-1905-00397}．
+	AutoAugment との違いは，探索手法に強化学習ではなく density matching の考え方を用いたベイズ最適化を取り入れている点．また，訓練の仕方が独特で，訓練データを Kfold してその中でモデルのパラメータチューニングに使う部分と操作の探索に使う部分とに分けて，問題を訓練データと評価データの density matching と置き換えて解いている．この 2 つの新手法を用いて従来の AutoAugment と同程度の性能を保ったまま 1000 倍以上早くなっている．現在はこのFast AutoAugmentを GA でできればいいなぁと考えている．もともとの AutoAugment はグーグルのマシンで cifer-10 を縮小したやつでも 5000 時間とか...現在拡張しようと思っているレポは \url{https://github.com/JunYeopLee/fast-autoaugment-efficientnet-pytorch} で，サブポリシーの最適化の部分のアルゴリズムを GA に差し替える予定．
+
+	\section{来週のタスク}
+	GA の遺伝子型の改良．
+
+	% 参考文献リスト
+	\bibliographystyle{unsrt}
+	\bibliography{2020_05_01}
+\end{document}
