@@ -1,0 +1,133 @@
+%\documentstyle[epsf,twocolumn]{jarticle}       %LaTeX2e仕様
+%\documentclass[twocolumn]{jarticle}     %pLaTeX2e仕様(platex.exeの場合)
+\documentclass[onecolumn]{ujarticle}   %pLaTeX2e仕様(uplatex.exeの場合)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  基本バージョン
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{-45pt}
+%\setlength{\oddsidemargin}{0cm}
+\setlength{\oddsidemargin}{-7.5mm}
+%\setlength{\evensidemargin}{0cm}
+\setlength{\textheight}{24.1cm}
+%setlength{\textheight}{25cm}
+\setlength{\textwidth}{17.4cm}
+%\setlength{\textwidth}{172mm}
+\setlength{\columnsep}{11mm}
+
+%\kanjiskip=.07zw plus.5pt minus.5pt
+
+
+% 【節が変わるごとに (1.1)(1.2) … (2.1)(2.2) と数式番号をつけるとき】
+%\makeatletter
+%\renewcommand{\theequation}{%
+%\thesection.\arabic{equation}} %\@addtoreset{equation}{section}
+%\makeatother
+
+%\renewcommand{\arraystretch}{0.95} 行間の設定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{graphicx}   %pLaTeX2e仕様(\documentstyle ->\documentclass)
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage[bb=boondox]{mathalfa}
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+\newcommand{\argmin}{\mathop{\rm arg~min}\limits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+	%bibtex用の設定
+	%\bibliographystyle{ujarticle}
+	\noindent
+
+	\hspace{1em}
+	2020 年 5 月 8 日
+	ゼミ資料
+	\hfill
+	M2 寺内 光
+
+	\vspace{2mm}
+
+	\hrule
+
+	\begin{center}
+		{\Large \bf 進捗報告}
+	\end{center}
+
+
+	\hrule
+	\vspace{3mm}
+
+	% ここから 文章 Start!
+	\section{今週やったこと}
+	\begin{itemize}{
+		\item{Augment操作のRandom Applyの実装}
+		\item{問題の定式化}
+	}\end{itemize}
+
+	\subsection{Augment操作のRandom Applyの実装}
+	森先生と以前話していた内容を実装．方針としては訓練データ$x_{i}$に対して拡張操作$f$を1回だけ適用したデータ$f(x_{i})$でデータを拡張する．ただし，
+	計算量の増加を抑えるために $\mathcal{F}(D) = \bigcup_{f \in \mathcal{F}}\{ (f(x), y): (x, y) \in D \}$ とするのではなく，確率的に候補となる操作を抽出し，適用する or 適用しないを選択し，近似的に操作候補の集合を評価する．ここで操作が適用されなかった場合，オリジナル画像から変化しないことを意味する．現在の適用確率は(操作候補数)/(操作候補数+1)としてある．つまり，$x_{i}$, $f_{1}(x_{i})$, $f_{2}(x_{i})...$ が等確率で選択されることになる．また，各操作の適用強度に関しては先行研究の良い精度を出したものを参考に partial 関数でハイパラとして固定してある(とはいえ，けっこう値がばらばらなので雑に体感の平均値をとっている程度．ここも将来的には最適化タスクに加えたい)．基本的な GA のタスク設計および実装はひとまずこれくらいで精度検証はサーバが使えるようになってからという感じで．
+	レポは\url{https://github.com/1g-hub/DEAP_CLS}に．
+
+	\subsection{問題の定式化}
+	先行研究の問題定式をまとめた．参考サイト \cite{fastautoaugument}
+
+	この定式を GA の問題に置き換えるのはサブポリシーとして扱う遺伝子型の改良が必要ではあるが，概ね立式としては以下のような感じになりそう．
+	今のままの組み合わせ問題として扱う場合には下の枠組みよりも AutoAugment の child model を学習する方式のほうがフィットしている．
+	\subsubsection{探索空間}
+	先行研究では $\mathbb{O}$ を入力空間 $\mathcal{X}$ 上の拡張操作$\mathcal{O}:\mathcal{X} \to \mathcal{X}$ の集合とする．各オペレーション$\mathcal{O}$は確率 $p$ と強度 $\lambda$ をもつ．
+	$S$ をsub-policyの集合として，sub-policy $\tau \in S$ は $N_{\tau}個の$ 操作集合 $\{\bar{\mathcal{O}}^{(\tau)}_{n}(x;p^{(\tau)}_{n}, \lambda^{(\tau)}_{n}):n=1,...,N_{\tau}\}$ として定義される．各 operation は入力画像に対して $n=1$ から順番に確率 $p$ に従って次のように適用される．
+
+	\begin{eqnarray*}
+		\bar{\mathcal{O}}_{n}(x;p, \lambda) =
+		\begin{cases}
+			\mathcal{O}_{n}(x;\lambda) : \rm{with \ probability} \ p \\
+			x : \rm{with \ probability} \ 1-p
+		\end{cases}
+	\end{eqnarray*}
+
+	よって sub-policy $\tau(x)$ の出力は
+	\begin{equation*}
+		\tilde{x}_{(n)} = \bar{\mathcal{O}}^{(\tau)}_{n}(\tilde{x}_{(n-1)}), n = 1, ..., N_{\tau}
+	\end{equation*}
+	と定義される．
+
+	\subsubsection{探索戦略}
+	$\mathcal{D}$ を$\mathcal{X} \times \mathcal{Y}$ 上の確率分布とし，$D \in \mathcal{D}$ をデータセットとする．パラメータ $\theta$ をもつ分類モデル $\mathcal{M}(\cdot | \theta)$ の期待される精度と損失を $\mathcal{R}(\theta|D), \mathcal{L}(\theta|D)$ と定義する．
+
+	任意のペア $D_{\rm{train}}$ と $D_{\rm{valid}}$ が与えられたとき，目標はモデルの汎化性能を向上させることとなる．ここでは $D_{\rm{train}}$ と $D_{\rm{valid}}$ の分布を一致させるようなaugmentationのpolicyを見つけることを目標とする．しかし，すべての policy の候補において2つの分布の密度関数を比較することは不可能であるため，ここではあるデータセットがもう一方のデータセットのパターンにどれだけ従うかを両方のデータセットに対するモデルの予測を使って測る．具体的には $D_{\rm{train}}$ を $D_{\mathcal{M}}$ と $D_{\mathcal{A}}$ の 2つに分け， $\theta$ の学習と $\mathcal{T}$ の探索に利用する．policyの探索のために，下記の目的関数を定義する．
+	\begin{equation*}
+		\mathcal{T}_{*} = \argmax_{\mathcal{T}} \mathcal{R}(\theta^{*}|\mathcal{T}(D_{\mathcal{A}}))
+	\end{equation*}
+
+	ただし，モデルパラメータ $\theta^{*}$ は $D_{\mathcal{M}}$ 上で学習した結果とする．この目的関数は近似的に $D_{\mathcal{M}}$ と $\mathcal{T}(D_{\mathcal{A}})$ 間の分布の距離をモデルのパフォーマンスの最大化という観点で最小化している．
+
+	Fast AutoAugment では以下の手続きをとる．
+
+	\begin{itemize}
+		\item まずK-fold stratified shufflingにより$D_{\rm{train}}$を $D^{(1)}_{\rm{train}}, ..., D^{(K)}_{\rm{train}}$ の $K$ 個に分割する．各$D^{(k)}_{\rm{train}}$ は2つのデータセット $D^{(k)}_{\mathcal{M}}$ と $D^{(k)}_{\mathcal{A}}$ からなる．
+		\item 次に，$D_{\mathcal{M}}$ を使い， data augmentation なしでモデルを学習する．
+		\item 学習後， $1 \leq t \leq T$ の間 $B$ 個のpolicyの候補 $\mathcal{B}={\mathcal{T}_{1}, ..., \mathcal{T}_{B}}$ をベイズ最適化により探索空間 $\mathcal{S}$ から探索する．より具体的には $\mathcal{T}(D_{\mathcal{A}})$ での $\mathcal{L}(\theta|\cdot)$ を最小化するように適用確率 $\{p_{1}, ..., p_{N_{t}}\}$ と強度 $\{\lambda_{1}, ..., \lambda_{N_{t}}\}$ をもつ policy $\mathcal{T} = \{ \tau_{1}, ..., \tau_{N_{t}} \}$ を探索する．
+	\end{itemize}
+
+	肝は policy の探索の間モデルのパラメータを学習する必要が一切なく，これによって実行速度を大幅に改善している点．また，それと同時に AutoAugment の child model の概念をなくし，実際に学習したいネットワークに対して直接 policy を探索することを可能にしている．
+
+	探索終了後は $\mathcal{B}$ の中から上位 $N$ 個の policy を選び，それらを $\mathcal{T}_{t}$ とする．その後 $\mathcal{T}_{t}$ を $\mathcal{T}_{*}$ に併合し，$\mathcal{T}_{*}$ を得る．最終的には$\mathcal{T}_{*}$を $D_{\rm{train}}$ 全体に対して適用してモデルを学習する．
+
+	policy は学習済みモデルに対してモデルの精度を上げるように探索されているため，次の関係を満たすことが期待される．
+
+	\begin{equation*}
+		\mathcal{R}(\theta|\mathcal{T}_{*}(D_{\mathcal{A}})) \geq \mathcal{R}(\theta|D_{\mathcal{A}})
+	\end{equation*}
+
+	\section{来週のタスク}
+	実験は自粛期間が明けてからでないとどうしようもないので，ひとまずは論文のかけるところから少しずつ書いていくという形で．
+
+	% 参考文献リスト
+	\bibliographystyle{unsrt}
+	\bibliography{2020_05_08}
+\end{document}
