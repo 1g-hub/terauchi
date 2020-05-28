@@ -1,0 +1,156 @@
+%\documentstyle[epsf,twocolumn]{jarticle}       %LaTeX2e仕様
+%\documentclass[twocolumn]{jarticle}     %pLaTeX2e仕様(platex.exeの場合)
+\documentclass[onecolumn]{ujarticle}   %pLaTeX2e仕様(uplatex.exeの場合)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  基本バージョン
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{-45pt}
+%\setlength{\oddsidemargin}{0cm}
+\setlength{\oddsidemargin}{-7.5mm}
+%\setlength{\evensidemargin}{0cm}
+\setlength{\textheight}{24.1cm}
+%setlength{\textheight}{25cm}
+\setlength{\textwidth}{17.4cm}
+%\setlength{\textwidth}{172mm}
+\setlength{\columnsep}{11mm}
+
+%\kanjiskip=.07zw plus.5pt minus.5pt
+
+
+% 【節が変わるごとに (1.1)(1.2) … (2.1)(2.2) と数式番号をつけるとき】
+%\makeatletter
+%\renewcommand{\theequation}{%
+%\thesection.\arabic{equation}} %\@addtoreset{equation}{section}
+%\makeatother
+
+%\renewcommand{\arraystretch}{0.95} 行間の設定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{graphicx}   %pLaTeX2e仕様(\documentstyle ->\documentclass)
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage[bb=boondox]{mathalfa}
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+\newcommand{\argmin}{\mathop{\rm arg~min}\limits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+	%bibtex用の設定
+	%\bibliographystyle{ujarticle}
+	\noindent
+
+	\hspace{1em}
+	2020 年 5 月 29 日
+	ゼミ資料
+	\hfill
+	M2 寺内 光
+
+	\vspace{2mm}
+
+	\hrule
+
+	\begin{center}
+		{\Large \bf 進捗報告}
+	\end{center}
+
+
+	\hrule
+	\vspace{3mm}
+
+	% ここから 文章 Start!
+	\section{今週やったこと}
+	\begin{itemize}{
+		\item{パワポ修正}
+		\item{TDGA の論文読み}
+		\item{入れ替えテスト実験}
+	}\end{itemize}
+
+	\subsection{テスト実験}
+	先週のゼミで話に上がっていた 4 コマの順列並び替え問題を試した．入れ替えていないものをクラス 0 としてその他の入れ替え方法 23 通りをクラス 1 とした．
+	クラス間の個数の偏りはクラス間に100倍の重みを設定することで緩和している．また，エポックの内最も評価 F-1 スコアが高かったものを採用した．
+
+	表 \ref{tab:cond_exp1} に実験条件を示す．
+
+	\begin{table}[h]
+		\centering
+		\caption{実験条件}
+		\vspace{-4mm}
+		\label{tab:cond_exp1}
+		\begin{tabular}{|c||c|} \hline
+			最適化関数&Adam\\ \hline
+			損失関数&重み付き交差エントロピー\\ \hline
+			エポック&100\\ \hline
+			訓練:検証&9:1\\ \hline
+			クラス0(Train)&627件\\ \hline
+			クラス1(Train)&14421件\\ \hline
+		\end{tabular}
+	\end{table}
+
+	表 \ref{tab:result1} に実験結果を示す．
+	\begin{table}[h]
+		\vspace{1mm}
+		\centering
+		\caption{入れ替え識別結果}
+		\vspace{-3mm}
+		\label{tab:result1}
+		\begin{tabular}{|c|c|c|c|c|} \hline
+	    クラス&Precision&Recall&F-1&サンプル数\\ \hline\hline
+	   	0(入れ替えなし)&0.09&0.04&0.06&72\\ \hline
+	   	1(入れ替えあり)&0.96&0.98&0.97&1656\\ \hline
+			macro avg&0.52&0.51&0.51&1728\\ \hline
+			weighted avg&0.92&0.94&0.93&1728\\ \hline
+			base line(macro F-1 avg)&-&-&0.49&\\ \hline
+			accuracy&&&&0.90\\ \hline
+		\end{tabular}
+	\end{table}
+
+	また，コマを逆順にしたものをクラス 1 にした実験も一応試した．
+	表 \ref{tab:result2} に実験結果を示す．
+	\begin{table}[h]
+		\vspace{1mm}
+		\centering
+		\caption{逆順入れ替え識別結果}
+		\vspace{-3mm}
+		\label{tab:result2}
+		\begin{tabular}{|c|c|c|c|c|} \hline
+	    クラス&Precision&Recall&F-1&サンプル数\\ \hline\hline
+	   	0(入れ替えなし)&0.54&0.60&0.57&72\\ \hline
+	   	1(逆順入れ替え)&0.55&0.49&0.51&72\\ \hline
+			macro avg&0.54&0.54&0.54&144\\ \hline
+			base line&0.50&0.50&0.50&\\ \hline
+			accuracy&&&&0.5416\\ \hline
+		\end{tabular}
+	\end{table}
+
+	表 \ref{tab:result3} に追加でコマ順を(3, 4, 1, 2)と固定した実験結果を示す．
+	\begin{table}[h]
+		\vspace{1mm}
+		\centering
+		\caption{固定入れ替え識別結果}
+		\vspace{-3mm}
+		\label{tab:result3}
+		\begin{tabular}{|c|c|c|c|c|} \hline
+			クラス&Precision&Recall&F-1&サンプル数\\ \hline\hline
+			0(入れ替えなし)&0.59&0.64&0.61&72\\ \hline
+			1(固定入れ替え)&0.61&0.56&0.58&72\\ \hline
+			macro avg&0.60&0.60&0.60&144\\ \hline
+			base line&0.50&0.50&0.50&\\ \hline
+			accuracy&&&&0.5972\\ \hline
+		\end{tabular}
+	\end{table}
+
+	やはりあまり精度が出ないなぁという感じ．一応パラメータチューニングはしていないので多少は上がる可能性はあるが，モデルアーキテクチャか実験設定を見直す必要がありそう．
+
+	ひとまずこの実験はここまでにして JSAI 後は TDGA 周りの実装を相談しつつ．
+
+	\section{来週のタスク}
+	JSAI 前の調整，準備．
+
+	% 参考文献リスト
+	% \bibliographystyle{unsrt}
+	% \bibliography{2020_05_29}
+\end{document}
