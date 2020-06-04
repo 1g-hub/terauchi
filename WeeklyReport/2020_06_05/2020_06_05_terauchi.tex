@@ -70,7 +70,7 @@
 	\section{FastAutoAugment動作確認}
 	Github の FastAutoAugment の PyTorch 実装 \cite{fastautoaugument} の Docker 環境での動作確認をした．
 	だいたいの実装を追えたので来週以降は AutoAugment のベイズ最適化の部分を GA(SGA) に差し替えることをまずは試す．
-	下にレポの人が上げてくれていたシードで回して精度確認ができた validation accuracy (Acc @1) の遷移を示す．赤線が AutoAugmentなしのベースラインを表す．また，学習時間は子モデルの学習に 1 時間程度かかるので 5 分割で 5 時間強 ＋ 最終学習でだいたい GPU 時間で 7 時間程度かかる．
+	表 \ref{fig:FasetAutoAugment-accuracy} にレポの人が上げてくれていたシードで回して精度確認ができた validation accuracy (Acc @1) の遷移を示す．赤線が AutoAugmentなしのベースラインを表す．また，学習時間は子モデルの学習に 1 時間弱かかるので 5 分割学習 ＋ 最終学習でだいたい GPU 時間で 5 時間程度かかる．
 
 	\begin{figure}[h]
 		\begin{center}
