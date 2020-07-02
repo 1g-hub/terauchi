@@ -1,0 +1,131 @@
+%\documentstyle[epsf,twocolumn]{jarticle}       %LaTeX2e仕様
+%\documentclass[twocolumn]{jarticle}     %pLaTeX2e仕様(platex.exeの場合)
+\documentclass[onecolumn]{ujarticle}   %pLaTeX2e仕様(uplatex.exeの場合)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  基本バージョン
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{-45pt}
+%\setlength{\oddsidemargin}{0cm}
+\setlength{\oddsidemargin}{-7.5mm}
+%\setlength{\evensidemargin}{0cm}
+\setlength{\textheight}{24.1cm}
+%setlength{\textheight}{25cm}
+\setlength{\textwidth}{17.4cm}
+%\setlength{\textwidth}{172mm}
+\setlength{\columnsep}{11mm}
+
+%\kanjiskip=.07zw plus.5pt minus.5pt
+
+% 【節が変わるごとに (1.1)(1.2) … (2.1)(2.2) と数式番号をつけるとき】
+%\makeatletter
+%\renewcommand{\theequation}{%
+%\thesection.\arabic{equation}} %\@addtoreset{equation}{section}
+%\makeatother
+
+%\renewcommand{\arraystretch}{0.95} 行間の設定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{graphicx}   %pLaTeX2e仕様(\documentstyle ->\documentclass)
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage[bb=boondox]{mathalfa}
+\usepackage{listings}
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+\newcommand{\argmin}{\mathop{\rm arg~min}\limits}
+
+\lstset{%
+  language={Python},
+  basicstyle={\small},%
+  identifierstyle={\small},%
+  commentstyle={\small\itshape},%
+  keywordstyle={\small\bfseries},%
+  ndkeywordstyle={\small},%
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},%
+  numbers=left,%
+  xrightmargin=0zw,%
+  xleftmargin=3zw,%
+  numberstyle={\scriptsize},%
+  stepnumber=1,
+  numbersep=1zw,%
+  lineskip=-0.5ex%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+	%bibtex用の設定
+	%\bibliographystyle{ujarticle}
+	\noindent
+
+	\hspace{1em}
+	2020 年 7 月 3 日
+	ゼミ資料
+	\hfill
+	M2 寺内 光
+
+	\vspace{2mm}
+
+	\hrule
+
+	\begin{center}
+		{\Large \bf 進捗報告}
+	\end{center}
+
+	\hrule
+	\vspace{3mm}
+
+	% ここから 文章 Start!
+	\section{今週やったこと}
+	\begin{itemize}{
+		\item{FastAutoAugmentへの SGA の適用}
+		\item{Augment周りの論文調査}
+	}\end{itemize}
+	\section{FastAutoAugmentへの SGA の適用}
+	FastAutoAugment のレポジトリのベイズ最適化の部分を SGA に置き換える実装をしていました．
+	まだデバッグ途中なので，SGA ができ次第，TDGA に移る．
+
+	また，使ってる FastAutoAugment が元々公式ではなく個人のレポの中で使いやすそうなのをピックアップしたので，論文中の精度が微妙に出ていないことに気づいた．なのでこのレポではいったん SOTA は気にせずにベイズアルゴリズムの部分を GA に置き換えることの影響を見て，そのあとに GA を使った新しい手法を考える．
+
+	\section{Augment周りの論文調査}
+	Augment研究周りを少し整理．現在主流の画像 Augment 手法としては以下の 4 つに大別できる．
+	\begin{itemize}
+		\item{AutoAugment(2018/05/24)}
+		\item{Fast AutoAugment(2019/05/01)}
+		\item{Population Based Augmentation(2019/05/14)}
+		\item{Rand Augment(2019/09/30)}
+	\end{itemize}
+	まだ下の2つはちゃんと読めてないが，軽くそれぞれの特徴を紹介．
+
+	\subsection{AutoAugment}
+	AutoML 分野の Data Augmentation への適用の基盤となる論文．デフォルトの拡張の組み合わせをポリシーと呼び，ポリシーの探索に RNN を用いている．探索されたポリシーにより，多くのデータセットにおいて SOTA を達成した．高速化のために小さいデータセットで学習後，大きなデータセットの学習の際に転移学習をする工夫をしているが，cifer-10 でも 5000GPU 時間と膨大な時間がかかるのが難点．公式レポは TensorFlow 実装．
+
+	\subsection{Fast AutoAugment}
+	AutoAugment のアイデアを用いて高速化した手法．ポリシーの発想はそのままに，最適化の部分に RNN ではなくベイズアルゴリズムを用い，さらに密度マッチングの考え方を用いてデータセットを分割し，評価にかかる時間を大幅に減らすことにより，精度を保ちながら AutoAugment の 1000 倍以上の高速化に成功．公式レポは PyTorch 実装．
+
+	\subsection{Population Based Augmentation(PBA)}
+	Population Based Augmentation \cite{DBLP:journals/corr/abs-1905-05393}
+
+	PBA も FastAutoAugment と同時期に発表された，AutoAugment の計算コストを削減しようという試みの内容の論文．アイデアの核の部分は Data Augmentation の適用もパラメータの一種と考え、PBT \cite{DBLP:journals/corr/abs-1711-09846} のような進化戦略を用いて良好な結果を出したモデル/Augmentationを残していく形を取っている。モデルのパラメータが持ち越されるため再計算の必要がなく，探索空間自体は AutoAugment よりも広いものの，精度を保ちながら AutoAugment の 1000 倍以上の高速化に成功．公式レポは TensorFlow 実装．
+
+	\subsection{Rand Augment}
+	Rand Augment \cite{Cubuk2019RandAugmentPA}．画像系の人はぜひみんな読んでみてほしい．
+
+	従来の AutoAugment 系の研究にはデータセットが大きいと膨大な時間がかかるという問題と，評価用の探索空間とテストの探索空間が必ずしも一致するわけではないという問題点があり，Rand Augment はこれら 2 つの問題点を解決した．まさかのパラメータをグリッドサーチで全探索する超単純な手法が有効というのは驚くべき結果．下に RandAugment のソースを示す．
+
+	\lstinputlisting[caption=RandAugment]{RandAugment.py}
+	探索空間は $10^2$ オーダーと驚異的に小さい．画像分類や画像検出の様々なタスクで SOTA に匹敵する精度を達成し，速度を大幅に向上させた．公式レポはなし(アルゴリズム自体は超簡単なため)．
+
+	\section{来週のタスク}
+	TDGA + FastAutoAugment 実験. Population Based Augmentation と Rand Augment を読む．
+
+	% 参考文献リスト
+	\bibliographystyle{unsrt}
+	\bibliography{2020_07_03}
+\end{document}
