@@ -128,30 +128,305 @@
     \begin{figure}[h]
       \vspace{-4mm}
       \centering
+
       \begin{subfigure}{0.3\columnwidth}
         \centering
         \includegraphics[width=1.0\columnwidth]{transform_test/AutoContrast_0.png}
-        \caption{mag=0}
+        \caption{AutoContrast}
         \label{fig:AutoContrast_0}
       \end{subfigure}
       \begin{subfigure}{0.3\columnwidth}
         \centering
-        \includegraphics[width=1.0\columnwidth]{transform_test/AutoContrast_15.png}
-        \caption{mag=15}
-        \label{fig:AutoContrast_15}
+        \includegraphics[width=1.0\columnwidth]{transform_test/Equalize_0.png}
+        \caption{Equalize}
+        \label{fig:Equalize_0}
       \end{subfigure}
       \begin{subfigure}{0.3\columnwidth}
         \centering
-        \includegraphics[width=1.0\columnwidth]{transform_test/AutoContrast_30.png}
-        \caption{mag=30}
-        \label{fig:AutoContrast_30}
+        \includegraphics[width=1.0\columnwidth]{transform_test/Invert_0.png}
+        \caption{Invert}
+        \label{fig:Invert_0}
       \end{subfigure}
-      \caption{強度を変えた各操作の適用例}
-      \label{fig:OperationsWithVariousMagnitude}
+
+
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Rotate_0.png}
+        \caption{Rotate(mag=0)}
+        \label{fig:Rotate_0}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Rotate_15.png}
+        \caption{Rotate(mag=15)}
+        \label{fig:Rotate_15}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Rotate_30.png}
+        \caption{Rotate(mag=30)}
+        \label{fig:Rotate_30}
+      \end{subfigure}
+
+
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Posterize_0.png}
+        \caption{Posterize(mag=0)}
+        \label{fig:Posterize_0}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Posterize_15.png}
+        \caption{Posterize(mag=15)}
+        \label{fig:Posterize_15}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Posterize_30.png}
+        \caption{Posterize(mag=30)}
+        \label{fig:Posterize_30}
+      \end{subfigure}
+
+
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Solarize_0.png}
+        \caption{Solarize(mag=0)}
+        \label{fig:Solarize_0}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Solarize_15.png}
+        \caption{Solarize(mag=15)}
+        \label{fig:Solarize_15}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Solarize_30.png}
+        \caption{Solarize(mag=30)}
+        \label{fig:Solarize_30}
+      \end{subfigure}
+
+      \caption{強度を変えた各操作の適用例(1)}
+      \label{fig:OperationsWithVariousMagnitude1}
     \end{figure}
 
+    \begin{figure}[h]
+      \vspace{-4mm}
+      \centering
+
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/SolarizeAdd_0.png}
+        \caption{SolarizeAdd(mag=0)}
+        \label{fig:SolarizeAdd_0}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/SolarizeAdd_15.png}
+        \caption{SolarizeAdd(mag=15)}
+        \label{fig:SolarizeAdd_15}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/SolarizeAdd_30.png}
+        \caption{SolarizeAdd(mag=30)}
+        \label{fig:SolarizeAdd_30}
+      \end{subfigure}
 
 
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Color_0.png}
+        \caption{Color(mag=0)}
+        \label{fig:Color_0}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Color_15.png}
+        \caption{Color(mag=15)}
+        \label{fig:Color_15}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Color_30.png}
+        \caption{Color(mag=30)}
+        \label{fig:Color_30}
+      \end{subfigure}
+
+
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Contrast_0.png}
+        \caption{Contrast(mag=0)}
+        \label{fig:Contrast_0}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Contrast_15.png}
+        \caption{Contrast(mag=15)}
+        \label{fig:Contrast_15}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Contrast_30.png}
+        \caption{Contrast(mag=30)}
+        \label{fig:Contrast_30}
+      \end{subfigure}
+
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Brightness_0.png}
+        \caption{Brightness(mag=0)}
+        \label{fig:Brightness_0}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Brightness_15.png}
+        \caption{Brightness(mag=15)}
+        \label{fig:Brightness_15}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Brightness_30.png}
+        \caption{Brightness(mag=30)}
+        \label{fig:Brightness_30}
+      \end{subfigure}
+
+      \caption{強度を変えた各操作の適用例(2)}
+      \label{fig:OperationsWithVariousMagnitude2}
+    \end{figure}
+
+    \begin{figure}[h]
+      \vspace{-4mm}
+      \centering
+
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Sharpness_0.png}
+        \caption{Sharpness(mag=0)}
+        \label{fig:Sharpness_0}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Sharpness_15.png}
+        \caption{Sharpness(mag=15)}
+        \label{fig:Sharpness_15}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/Sharpness_30.png}
+        \caption{Sharpness(mag=30)}
+        \label{fig:Sharpness_30}
+      \end{subfigure}
+
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/ShearX_0.png}
+        \caption{ShearX(mag=0)}
+        \label{fig:ShearX_0}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/ShearX_15.png}
+        \caption{ShearX(mag=15)}
+        \label{fig:ShearX_15}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/ShearX_30.png}
+        \caption{ShearX(mag=30)}
+        \label{fig:ShearX_30}
+      \end{subfigure}
+
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/ShearY_0.png}
+        \caption{ShearY(mag=0)}
+        \label{fig:ShearY_0}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/ShearY_15.png}
+        \caption{ShearY(mag=15)}
+        \label{fig:ShearY_15}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/ShearY_30.png}
+        \caption{ShearY(mag=30)}
+        \label{fig:ShearY_30}
+      \end{subfigure}
+
+      \caption{強度を変えた各操作の適用例(3)}
+      \label{fig:OperationsWithVariousMagnitude3}
+    \end{figure}
+
+    \begin{figure}[h]
+      \vspace{-4mm}
+      \centering
+
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/CutoutAbs_0.png}
+        \caption{CutoutAbs(mag=0)}
+        \label{fig:CutoutAbs_0}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/CutoutAbs_15.png}
+        \caption{CutoutAbs(mag=15)}
+        \label{fig:CutoutAbs_15}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/CutoutAbs_30.png}
+        \caption{CutoutAbs(mag=30)}
+        \label{fig:CutoutAbs_30}
+      \end{subfigure}
+
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/TranslateXabs_0.png}
+        \caption{TranslateXabs(mag=0)}
+        \label{fig:TranslateXabs_0}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/TranslateXabs_15.png}
+        \caption{TranslateXabs(mag=15)}
+        \label{fig:TranslateXabs_15}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/TranslateXabs_30.png}
+        \caption{TranslateXabs(mag=30)}
+        \label{fig:TranslateXabs_30}
+      \end{subfigure}
+
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/TranslateYabs_0.png}
+        \caption{TranslateYabs(mag=0)}
+        \label{fig:TranslateYabs_0}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/TranslateYabs_15.png}
+        \caption{TranslateYabs(mag=15)}
+        \label{fig:TranslateYabs_15}
+      \end{subfigure}
+      \begin{subfigure}{0.3\columnwidth}
+        \centering
+        \includegraphics[width=1.0\columnwidth]{transform_test/TranslateYabs_30.png}
+        \caption{TranslateYabs(mag=30)}
+        \label{fig:TranslateYabs_30}
+      \end{subfigure}
+
+      \caption{強度を変えた各操作の適用例(4)}
+      \label{fig:OperationsWithVariousMagnitude4}
+    \end{figure}
 
   \subsection{SGA}
   SGA においては交叉に1点交叉，選択にトーナメント戦略(サイズ2)を用いた．適用強度を変化させながら実験した結果，全ての探索においてどの拡張も採用しない個体が最も上位の適応度を持っていた．これに関しては元々学習している子モデルが拡張なしで学習しているためだと考えられる．
@@ -197,12 +472,12 @@
 		\end{center}
 	\end{figure}
 
-  探索が進んでいること，および温度のスケジューリングにより個体群がある遺伝子座において収束をしていることがわかる．また，このとき Validation Accuracy は 91.370％ となった．また，元のレポジトリの FastAutoAugment では  91.810％ の精度が出ていた．この精度がどれくらい伸びるかは適用強度，突然変異率，温度パラメータ等を変化させながら観察したい．
+  探索が進んでいること，および温度のスケジューリングにより個体群がある遺伝子座において収束をしていることがわかる．また，このとき Validation Accuracy は 91.370％ となった．また，元のレポジトリの FastAutoAugment では  91.810％ の精度が出ていた．この精度がどれくらい伸びるかは適用強度，突然変異率，温度パラメータ等を変化させながら観察したい．また，強度を 15, エポックを倍にすると 91.740％ まで精度が上昇することを確認した．
 
   また，このとき選択された操作は下のようになった．
   \lstinputlisting[caption=subpolicies\_TDGA]{subpolicies_TDGA.txt}
 
-  拡張なしが最も高い適応度を示すのはSGAと同じだが，しっかりと多様性を維持しつつ最終的なポリシーが得られていることがわかる．しかしながら，選ばれている操作はかなり限定的であり，おおよそ元の画像に変化を加えないような操作が選ばれることがわかった．これをどう改善していくかは今後の課題になりそう．ただ，元のFastAutoAugmentではしっかり変形等の拡張が採用されていた．これはおそらくベイズ探索の強度を下げてあまりロスの下がりすぎない操作を大域的に探しているからだと考えられる．実際に探索結果の Validation Accuracy は 0.4−0.6 とそこまで良くないものが採用されていることがわかった(ただし，ベイズでやってるのはロスの最小化なので Accuracy が目的関数ではない)．TDGA においても遺伝子空間の多様性に加えてこのあたりの表現空間の多様性を維持する方法を取り入れたいという感じがした．
+  拡張なしが最も高い適応度を示すのはSGAと同じだが，しっかりと多様性を維持しつつ最終的なポリシーが得られていることがわかる．しかしながら，選ばれている操作はかなり限定的であり，おおよそ元の画像に位置的な変化を加えないような操作が選ばれることがわかった．これをどう改善していくかは今後の課題になりそう．ただ，元のFastAutoAugmentではしっかり変形等の拡張が採用されていた．これはおそらくベイズ探索の強度を下げてあまりロスの下がりすぎない操作を大域的に探しているからだと考えられる．実際に探索結果の Validation Accuracy は 0.4−0.6 とそこまで良くないものが採用されていることがわかった(ただし，ベイズでやってるのはロスの最小化なので Accuracy が目的関数ではない)．TDGA においても遺伝子空間の多様性に加えてこのあたりの表現空間の多様性を維持する方法を取り入れたいという感じがした．
 
 	\section{来週のタスク}
 	TDGA の適用強度と初期温度，終了温度を変化させたときの影響を観察する．
