@@ -1,0 +1,66 @@
+Search Phase 0
+(Compose(
+    Pad(padding=4, fill=0, padding_mode=constant)
+    RandomCrop(size=(32, 32), padding=None)
+    RandomHorizontalFlip(p=0.5)
+    ToTensor()
+), array([0.8486], dtype=float32))
+(Compose(
+    Pad(padding=4, fill=0, padding_mode=constant)
+    RandomCrop(size=(32, 32), padding=None)
+    RandomHorizontalFlip(p=0.5)
+    AutoContrast
+    Color(magnitude=0.70)
+    Contrast(magnitude=0.70)
+    Sharpness(magnitude=0.70)
+    ToTensor()
+), array([0.825], dtype=float32))
+(Compose(
+    Pad(padding=4, fill=0, padding_mode=constant)
+    RandomCrop(size=(32, 32), padding=None)
+    RandomHorizontalFlip(p=0.5)
+    AutoContrast
+    Brightness(magnitude=0.70)
+    ToTensor()
+), array([0.8402], dtype=float32))
+(Compose(
+    Pad(padding=4, fill=0, padding_mode=constant)
+    RandomCrop(size=(32, 32), padding=None)
+    RandomHorizontalFlip(p=0.5)
+    Color(magnitude=0.70)
+    ToTensor()
+), array([0.8454], dtype=float32))
+(Compose(
+    Pad(padding=4, fill=0, padding_mode=constant)
+    RandomCrop(size=(32, 32), padding=None)
+    RandomHorizontalFlip(p=0.5)
+    AutoContrast
+    Brightness(magnitude=0.70)
+    Sharpness(magnitude=0.70)
+    ShearX(magnitude=0.10)
+    ToTensor()
+), array([0.79819995], dtype=float32))
+(Compose(
+    Pad(padding=4, fill=0, padding_mode=constant)
+    RandomCrop(size=(32, 32), padding=None)
+    RandomHorizontalFlip(p=0.5)
+    AutoContrast
+    Color(magnitude=0.70)
+    Contrast(magnitude=0.70)
+    ToTensor()
+), array([0.83779997], dtype=float32))
+(Compose(
+    Pad(padding=4, fill=0, padding_mode=constant)
+    RandomCrop(size=(32, 32), padding=None)
+    RandomHorizontalFlip(p=0.5)
+    Sharpness(magnitude=0.70)
+    ToTensor()
+), array([0.843], dtype=float32))
+(Compose(
+    Pad(padding=4, fill=0, padding_mode=constant)
+    RandomCrop(size=(32, 32), padding=None)
+    RandomHorizontalFlip(p=0.5)
+    ShearY(magnitude=0.10)
+    ToTensor()
+), array([0.797], dtype=float32))
+

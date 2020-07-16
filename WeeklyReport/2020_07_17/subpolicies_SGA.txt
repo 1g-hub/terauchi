@@ -1,0 +1,56 @@
+Search Phase 0
+(Compose(
+    Pad(padding=4, fill=0, padding_mode=constant)
+    RandomCrop(size=(32, 32), padding=None)
+    ToTensor()
+), 0.8513999581336975)
+
+Search Phase 1
+(Compose(
+    Pad(padding=4, fill=0, padding_mode=constant)
+    RandomCrop(size=(32, 32), padding=None)
+    ToTensor()
+), 0.8513999581336975)
+
+Search Phase 2
+(Compose(
+    Pad(padding=4, fill=0, padding_mode=constant)
+    RandomCrop(size=(32, 32), padding=None)
+    ToTensor()
+), 0.8596000075340271)
+
+Search Phase 3
+(Compose(
+    Pad(padding=4, fill=0, padding_mode=constant)
+    RandomCrop(size=(32, 32), padding=None)
+    ToTensor()
+), 0.8596000075340271)
+
+Search Phase 4
+(Compose(
+    Pad(padding=4, fill=0, padding_mode=constant)
+    RandomCrop(size=(32, 32), padding=None)
+    ToTensor()
+), 0.8596000075340271)
+
+Search Phase 5
+(Compose(
+    Pad(padding=4, fill=0, padding_mode=constant)
+    RandomCrop(size=(32, 32), padding=None)
+    ToTensor()
+), 0.8596000075340271)
+
+Search Phase 6
+(Compose(
+    Pad(padding=4, fill=0, padding_mode=constant)
+    RandomCrop(size=(32, 32), padding=None)
+    ToTensor()
+), 0.8499999642372131)
+
+Search Phase 7
+(Compose(
+    Pad(padding=4, fill=0, padding_mode=constant)
+    RandomCrop(size=(32, 32), padding=None)
+    ToTensor()
+), 0.8499999642372131)
+
