@@ -1,0 +1,167 @@
+%\documentstyle[epsf,twocolumn]{jarticle}       %LaTeX2e仕様
+%\documentclass[twocolumn]{jarticle}     %pLaTeX2e仕様(platex.exeの場合)
+\documentclass[onecolumn]{ujarticle}   %pLaTeX2e仕様(uplatex.exeの場合)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  基本バージョン
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{-45pt}
+%\setlength{\oddsidemargin}{0cm}
+\setlength{\oddsidemargin}{-7.5mm}
+%\setlength{\evensidemargin}{0cm}
+\setlength{\textheight}{24.1cm}
+%setlength{\textheight}{25cm}
+\setlength{\textwidth}{17.4cm}
+%\setlength{\textwidth}{172mm}
+\setlength{\columnsep}{11mm}
+
+%\kanjiskip=.07zw plus.5pt minus.5pt
+
+% 【節が変わるごとに (1.1)(1.2) … (2.1)(2.2) と数式番号をつけるとき】
+%\makeatletter
+%\renewcommand{\theequation}{%
+%\thesection.\arabic{equation}} %\@addtoreset{equation}{section}
+%\makeatother
+
+%\renewcommand{\arraystretch}{0.95} 行間の設定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{graphicx}   %pLaTeX2e仕様(\documentstyle ->\documentclass)
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage[bb=boondox]{mathalfa}
+\usepackage{listings}
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+\newcommand{\argmin}{\mathop{\rm arg~min}\limits}
+
+\lstset{%
+  language={Python},
+  basicstyle={\small},%
+  identifierstyle={\small},%
+  commentstyle={\small\itshape},%
+  keywordstyle={\small\bfseries},%
+  ndkeywordstyle={\small},%
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},%
+  numbers=left,%
+  xrightmargin=0zw,%
+  xleftmargin=3zw,%
+  numberstyle={\scriptsize},%
+  stepnumber=1,
+  numbersep=1zw,%
+  lineskip=-0.5ex%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+	%bibtex用の設定
+	%\bibliographystyle{ujarticle}
+	\noindent
+
+	\hspace{1em}
+	2020 年 7 月 24 日
+	ゼミ資料
+	\hfill
+	M2 寺内 光
+
+	\vspace{2mm}
+
+	\hrule
+
+	\begin{center}
+		{\Large \bf 進捗報告}
+	\end{center}
+
+	\hrule
+	\vspace{3mm}
+
+	% ここから 文章 Start!
+	\section{今週やったこと}
+	\begin{itemize}{
+    \item{レポ移行，cifer-10 の論文ベースラインを確認}
+    \item{TDGA AutoAugment 実験}
+	}\end{itemize}
+
+  \section{レポ移行}
+  FastAutoAugment のレポから移行完了．また，このタイミングで用いているモデル及び最適化スケジューラ等を一通り見直し，RandAugment で挙げられていた cifer-10 の自動拡張なしベースラインを達成できることを確認した．
+  CNN 単体の学習は Wide-ResNet-28-2, 200 エポックで 50 分(accuracy:95.1\%), Wide-ResNet-28-10 で 6 時間(accuracy:96.2\%)ほど．
+  また，cudnn.benchmark を設定することで元のレポの 3 時間ちょっとかかっていたものが 2時間程度で完了するようになった．PyTorch を使ってて入力画像サイズとネットワークが変化しないようなモデルを使っている人は cudnn.benchmark=True 設定を使ってみると良いかも．
+
+  \section{TDGA AutoAugment 実験}
+  新しいモデルを用いて温度パラメータ，強度を変化させつつ実験した．
+  温度パラメータは [0.01, 0.08] を 0.01 刻み, 強度は [0, 30] を 5 刻みで回した．また，温度パラメータは探索中固定である．
+
+  cifer-10 のパラメータは 200 エポック，optimizer は SGD, スケジューラはコサインアニーリング(PyTorch の torch.optim.lr\_scheduler.CosineAnnealingLR を参照)を用いている．これらの値は RandAugment の論文中で採用されているものである．またデフォルト拡張としては pad-and-crop，ランダムフリップ，および画素値の正規化を用いている．
+
+  図 \ref{fig:exp_change_temperature} に強度を 15 に固定して温度を変化させた Test accuracy を示す．
+  \begin{figure}[ht]
+    \begin{center}
+      \includegraphics[width=0.7\columnwidth]{exp_change_temperature.png}
+      \caption{温度を変化させた Test accuracy(強度固定)}
+      \label{fig:exp_change_temperature}
+    \end{center}
+  \end{figure}
+
+
+  図 \ref{fig:exp_change_mag} に温度を 0.05 に固定して温度を変化させた Test accuracy を示す．
+  \begin{figure}[ht]
+    \begin{center}
+      \includegraphics[width=0.7\columnwidth]{exp_change_mag.png}
+      \caption{強度を変化させた Test accuracy(温度固定)}
+      \label{fig:exp_change_mag}
+    \end{center}
+  \end{figure}
+
+  どちらも1$\sigma$の範囲内という感じでそこまでの精度向上は見られない．選ばれている拡張も先週の報告にあるような画像に変形を加えないようなものが主に選ばれていた．
+
+  ここで，図 \ref{fig:transform_importance} に RandAugment で報告されていた，各操作を採用することによる精度向上の表を示す(正確には表ですがスクショしたので図になっています)．$\Delta$ はその操作を選択することで最終精度が向上する期待値を表している．
+
+  \begin{figure}[ht]
+    \begin{center}
+      \includegraphics[width=0.7\columnwidth]{operation_importance.png}
+      \caption{各操作を選択することによる精度への影響}
+      \label{fig:transform_importance}
+    \end{center}
+  \end{figure}
+
+  これを見るとやはり変形を加えるようなものの方が精度への寄与は大きいことがわかる．このあたりの多様度をどのように維持するのかということが今後の主な課題になりそう．
+
+  表 \ref{tab:compare_cider10} に他手法との比較を示す．比較に用いた手法は Population Based Augmentation (PBA) \cite{DBLP:journals/corr/abs-1905-05393}, Fast AutoAugment (Fast AA) \cite{DBLP:journals/corr/abs-1905-00397}, AutoAugment (AA) \cite{DBLP:journals/corr/abs-1801-02929} および  RandAugment (RA) \cite{Cubuk2019RandAugmentPA} である． TDGA Augment 以外の値は RandAugment で掲載されているものである．また，baseline の値は手元で確認した 10 回試行の平均であり，()内の値は論文で挙げられていたものである．また，Wide-ResNet-28-10 を用いた実験は時間がかかるためまずは Wide-ResNet-28-2 でチューニングする．
+
+  \begin{table}[ht]
+		\centering
+		\caption{Test accuracy(\%) on CIFER-10}
+		\label{tab:compare_cider10}
+		\begin{tabular}{c||c c c c c|c} \hline
+		  &baseline&PBA&Fast AA&AA&RA&TDGA Augment\\ \hline
+			Wide-ResNet-28-2&0.951(94.9)&-&-&95.9&95.8&0.9535\\
+			Wide-ResNet-28-10&-(96.1)&97.4&97.3&97.4&97.3&-\\ \hline
+		\end{tabular}
+	\end{table}
+
+  \section{強度をランダムにした RandAugment について}
+  先週操作の強度を一定にしていいのかという議論があったが，RandAugment の付録 A.1.1, A.1.2 に書いてあった．A.1.1 によると，強度 $M$ をランダムに選ぶ手法，一定の強度で統一する手法(論文内容), 線形に増加させる手法，上限を徐々に増加させるランダム選択などを試した結果そこまで精度に変わりがなく，パラメータとして単純な一定の強度を採用したという話．
+
+  また，A.1.2 によると，一定の値から 1 つの操作の強度だけを変化させることによる影響が小さいという結果から，探索空間の削減を考えて一定の強度を採用するに至ったらしい．
+
+
+	\section{来週のタスク}
+	操作の種類毎に多様性をもたせるように拡張したい．
+
+  \section{TODO タスク}
+  \begin{itemize}{
+    \item{他のモデルを用いた実験}
+    \item{CIFER-100, SVHN など他ベンチマーク問題に対する精度比較}
+    \item{漫画画像への適用}
+	}\end{itemize}
+
+	% 参考文献リスト
+	\bibliographystyle{unsrt}
+	\bibliography{2020_07_24}
+\end{document}
