@@ -1,0 +1,111 @@
+%\documentstyle[epsf,twocolumn]{jarticle}       %LaTeX2e仕様
+%\documentclass[twocolumn]{jarticle}     %pLaTeX2e仕様(platex.exeの場合)
+\documentclass[onecolumn]{ujarticle}   %pLaTeX2e仕様(uplatex.exeの場合)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  基本バージョン
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{-45pt}
+%\setlength{\oddsidemargin}{0cm}
+\setlength{\oddsidemargin}{-7.5mm}
+%\setlength{\evensidemargin}{0cm}
+\setlength{\textheight}{24.1cm}
+%setlength{\textheight}{25cm}
+\setlength{\textwidth}{17.4cm}
+%\setlength{\textwidth}{172mm}
+\setlength{\columnsep}{11mm}
+
+%\kanjiskip=.07zw plus.5pt minus.5pt
+
+% 【節が変わるごとに (1.1)(1.2) … (2.1)(2.2) と数式番号をつけるとき】
+%\makeatletter
+%\renewcommand{\theequation}{%
+%\thesection.\arabic{equation}} %\@addtoreset{equation}{section}
+%\makeatother
+
+%\renewcommand{\arraystretch}{0.95} 行間の設定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{graphicx}   %pLaTeX2e仕様(\documentstyle ->\documentclass)
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage[bb=boondox]{mathalfa}
+\usepackage{listings}
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+\newcommand{\argmin}{\mathop{\rm arg~min}\limits}
+
+\lstset{%
+  language={Python},
+  basicstyle={\small},%
+  identifierstyle={\small},%
+  commentstyle={\small\itshape},%
+  keywordstyle={\small\bfseries},%
+  ndkeywordstyle={\small},%
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},%
+  numbers=left,%
+  xrightmargin=0zw,%
+  xleftmargin=3zw,%
+  numberstyle={\scriptsize},%
+  stepnumber=1,
+  numbersep=1zw,%
+  lineskip=-0.5ex%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+	%bibtex用の設定
+	%\bibliographystyle{ujarticle}
+	\noindent
+
+	\hspace{1em}
+	2020 年 9 月 25 日
+	ゼミ資料
+	\hfill
+	M2 寺内 光
+
+	\vspace{2mm}
+
+	\hrule
+
+	\begin{center}
+		{\Large \bf 進捗報告}
+	\end{center}
+
+	\hrule
+	\vspace{3mm}
+
+	% ここから 文章 Start!
+	\section{今週やったこと}
+	\begin{itemize}{
+    \item{Translateのバグfix，再実験}
+	}\end{itemize}
+
+  \section{Translateのバグfix，再実験}
+  Translate-X/Yが絶対値で指定されていた問題の対処後，再実験をしていたが，\% 指定するクラス実装も誤りがあったので修正し,再実験中．
+  来週にはまとめて報告できるようにします．
+
+  ひとまず，Translateのエントロピーが死ななそうなことを確認．
+
+  \begin{figure}[ht]
+    \begin{center}
+      \includegraphics[width=0.7\columnwidth]{entropy.png}
+      \caption{操作強度$M=2$におけるエントロピーの遷移}
+      \label{fig:transform_importance}
+    \end{center}
+  \end{figure}
+
+	\section{来週のタスク}
+	DCAI のパワポ作成．
+
+
+	% 参考文献リスト
+	% \bibliographystyle{unsrt}
+	% \bibliography{2020_09_25}
+\end{document}
