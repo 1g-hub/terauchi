@@ -1,0 +1,116 @@
+%\documentstyle[epsf,twocolumn]{jarticle}       %LaTeX2e仕様
+%\documentclass[twocolumn]{jarticle}     %pLaTeX2e仕様(platex.exeの場合)
+\documentclass[onecolumn]{ujarticle}   %pLaTeX2e仕様(uplatex.exeの場合)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  基本バージョン
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{-45pt}
+%\setlength{\oddsidemargin}{0cm}
+\setlength{\oddsidemargin}{-7.5mm}
+%\setlength{\evensidemargin}{0cm}
+\setlength{\textheight}{24.1cm}
+%setlength{\textheight}{25cm}
+\setlength{\textwidth}{17.4cm}
+%\setlength{\textwidth}{172mm}
+\setlength{\columnsep}{11mm}
+
+%\kanjiskip=.07zw plus.5pt minus.5pt
+
+% 【節が変わるごとに (1.1)(1.2) … (2.1)(2.2) と数式番号をつけるとき】
+%\makeatletter
+%\renewcommand{\theequation}{%
+%\thesection.\arabic{equation}} %\@addtoreset{equation}{section}
+%\makeatother
+
+%\renewcommand{\arraystretch}{0.95} 行間の設定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{graphicx}   %pLaTeX2e仕様(\documentstyle ->\documentclass)
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage[bb=boondox]{mathalfa}
+\usepackage{listings}
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+\newcommand{\argmin}{\mathop{\rm arg~min}\limits}
+
+\lstset{%
+  language={Python},
+  basicstyle={\small},%
+  identifierstyle={\small},%
+  commentstyle={\small\itshape},%
+  keywordstyle={\small\bfseries},%
+  ndkeywordstyle={\small},%
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},%
+  numbers=left,%
+  xrightmargin=0zw,%
+  xleftmargin=3zw,%
+  numberstyle={\scriptsize},%
+  stepnumber=1,
+  numbersep=1zw,%
+  lineskip=-0.5ex%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+	%bibtex用の設定
+	%\bibliographystyle{ujarticle}
+	\noindent
+
+	\hspace{1em}
+	2020 年 10 月 23 日
+	ゼミ資料
+	\hfill
+	M2 寺内 光
+
+	\vspace{2mm}
+
+	\hrule
+
+	\begin{center}
+		{\Large \bf 進捗報告}
+	\end{center}
+
+	\hrule
+	\vspace{3mm}
+
+	% ここから 文章 Start!
+	\section{今週やったこと}
+	拡張の転移可能性 および epoch 数増加に対する accuracy の増分に関する調査
+
+  \section{結果}
+  CIFAR-10+WRN28-2 で探索した拡張を WRN28-10 に適用する実験および探索時の epoch は変えずに最終訓練の epoch を増やす実験をした．また，各識別率はいずれも 1 回試行におけるものである．
+
+  表 \ref{tab:compare_experiments} に結果を示す．
+  \begin{table}[ht]
+		\centering
+		\caption{Test accuracy(\%)}
+		\label{tab:compare_experiments}
+		\begin{tabular}{l||c c c c c c} \hline
+		  &Base(200 epoch)&Base(300 epoch)&RA&200 epoch&300 epoch&400 epoch\\ \hline
+			CIFAR-10 &&&&&&\\
+      WRN28-2&94.9&94.98&95.8&95.89&96.08&96.14\\
+			WRN28-10&96.1&96.23&97.3&97.10&97.26&97.30\\
+      WRN28-10(transfer)&-&-&-&97.13&97.46&97.34\\ \hline
+      SVHN-CORE &&&&&&\\
+      WRN28-10&96.9&97.22&98.3&97.90&97.96&- \\
+		\end{tabular}
+	\end{table}
+
+  1 回試行なのでぶれは大きいが， epoch の増加に対して精度が向上していることが確認できる．また，拡張を転移したほうが精度が(微妙に)あがっているが，誤差の範囲ともとれる．300epochでの結果は要検討．
+
+
+  \section{〜feedback(11/3)のタスク}
+  漫画データセットに対する適用実験
+
+	% 参考文献リスト
+	% \bibliographystyle{unsrt}
+	% \bibliography{2020_10_23}
+\end{document}
