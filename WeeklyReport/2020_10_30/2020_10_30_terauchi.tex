@@ -1,0 +1,143 @@
+%\documentstyle[epsf,twocolumn]{jarticle}       %LaTeX2e仕様
+%\documentclass[twocolumn]{jarticle}     %pLaTeX2e仕様(platex.exeの場合)
+\documentclass[onecolumn]{ujarticle}   %pLaTeX2e仕様(uplatex.exeの場合)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  基本バージョン
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{-45pt}
+%\setlength{\oddsidemargin}{0cm}
+\setlength{\oddsidemargin}{-7.5mm}
+%\setlength{\evensidemargin}{0cm}
+\setlength{\textheight}{24.1cm}
+%setlength{\textheight}{25cm}
+\setlength{\textwidth}{17.4cm}
+%\setlength{\textwidth}{172mm}
+\setlength{\columnsep}{11mm}
+
+%\kanjiskip=.07zw plus.5pt minus.5pt
+
+% 【節が変わるごとに (1.1)(1.2) … (2.1)(2.2) と数式番号をつけるとき】
+%\makeatletter
+%\renewcommand{\theequation}{%
+%\thesection.\arabic{equation}} %\@addtoreset{equation}{section}
+%\makeatother
+
+%\renewcommand{\arraystretch}{0.95} 行間の設定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{graphicx}   %pLaTeX2e仕様(\documentstyle ->\documentclass)
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage[bb=boondox]{mathalfa}
+\usepackage{listings}
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+\newcommand{\argmin}{\mathop{\rm arg~min}\limits}
+
+\lstset{%
+  language={Python},
+  basicstyle={\small},%
+  identifierstyle={\small},%
+  commentstyle={\small\itshape},%
+  keywordstyle={\small\bfseries},%
+  ndkeywordstyle={\small},%
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},%
+  numbers=left,%
+  xrightmargin=0zw,%
+  xleftmargin=3zw,%
+  numberstyle={\scriptsize},%
+  stepnumber=1,
+  numbersep=1zw,%
+  lineskip=-0.5ex%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+	%bibtex用の設定
+	%\bibliographystyle{ujarticle}
+	\noindent
+
+	\hspace{1em}
+	2020 年 10 月 30 日
+	ゼミ資料
+	\hfill
+	M2 寺内 光
+
+	\vspace{2mm}
+
+	\hrule
+
+	\begin{center}
+		{\Large \bf 進捗報告}
+	\end{center}
+
+	\hrule
+	\vspace{3mm}
+
+	% ここから 文章 Start!
+	\section{今週やったこと}
+	漫画データセットへの適用実験のための移植および改良.
+
+  \section{漫画データセットへの適用実験のための移植および改良}
+  ひとまず作品名識別をするために漫画データセットが使えるように移植を進めた．タイトルは 青年漫画タッチ，あくはむ，高校の人達，OLランチ，徹さん，幼稚園ぼうえい組の 6 作品を用いた．各作品において train:val=9:1 と設定した．
+  モデルには WRN28-2 を用いた．以前にした識別実験とは分散表現を用いない点およびモデルが異なる．ほとんどの訓練の条件は CIFAR-10を用いた実験と同様である．6 クラス識別のため，ランダムに選んだ場合の識別率は 0.166 である．表 \ref{tab:num_data} に各作品のデータ数を示す．
+
+  \begin{table}[h]
+  	\centering
+  	\caption{各作品のデータ数}
+  	\vspace{-4mm}
+  	\label{tab:num_data}
+  	\begin{tabular}{|c||c|} \hline
+      あくはむ&676\\ \hline
+  		高校の人達&908\\ \hline
+  		OLランチ&828\\ \hline
+  		徹さん&520\\ \hline
+  		幼稚園ぼうえい組&360\\ \hline
+      少年漫画タッチ&80\\ \hline
+  	\end{tabular}
+  \end{table}
+
+  表 \ref{tab:title_experiments} に結果を示す．
+  \begin{table}[ht]
+		\centering
+		\caption{作品名識別 Test accuracy(\%)}
+		\label{tab:title_experiments}
+		\begin{tabular}{l||c c c} \hline
+		  &Baseline&Baseline(Cutout)&TDGA AA\\ \hline
+			4コマ漫画 &&&\\
+      WRN28-2&92.41$\pm$1.14 &93.26$\pm$0.39&-\\
+		\end{tabular}
+	\end{table}
+
+  分散表現を用いた作品名識別率は 5 クラスで 0.67 程度だったため，かなり向上している．
+
+  また，入れ替え識別のモデルも新たに組み直して TDGA AA に組み込んだ．各画像に対し WRN28-2 で特徴量抽出をし，その特徴ベクトルを LSTM モデルで識別することとする．また，特徴抽出部は重み固定 or ファインチューニング等選択できるように設計し，今回は作品名識別で得た重みを固定で用いた．
+
+  表 \ref{tab:swap_experiments} に結果を示す．
+  \begin{table}[ht]
+		\centering
+		\caption{入れ替え識別 Test accuracy(\%)}
+		\label{tab:swap_experiments}
+		\begin{tabular}{l||c c c} \hline
+		  &Baseline&Baseline(Cutout)&TDGA AA\\ \hline
+			4コマ漫画 &&&\\
+      WRN28-2&57.94$\pm$1.79 &60.59$\pm$0.75&-\\
+		\end{tabular}
+	\end{table}
+
+  画像入れ替えのみの実験はしていなかったが，前の実験では0.45程度しかでていなかったので，こちらも精度が向上していそう．
+
+  \section{来週のタスク}
+  TDGA AutoAugment の適用実験
+
+	% 参考文献リスト
+	% \bibliographystyle{unsrt}
+	% \bibliography{2020_10_30}
+\end{document}
