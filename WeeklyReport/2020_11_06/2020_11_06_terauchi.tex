@@ -1,0 +1,206 @@
+%\documentstyle[epsf,twocolumn]{jarticle}       %LaTeX2e仕様
+%\documentclass[twocolumn]{jarticle}     %pLaTeX2e仕様(platex.exeの場合)
+\documentclass[onecolumn]{ujarticle}   %pLaTeX2e仕様(uplatex.exeの場合)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%  基本バージョン
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\topmargin}{-45pt}
+%\setlength{\oddsidemargin}{0cm}
+\setlength{\oddsidemargin}{-7.5mm}
+%\setlength{\evensidemargin}{0cm}
+\setlength{\textheight}{24.1cm}
+%setlength{\textheight}{25cm}
+\setlength{\textwidth}{17.4cm}
+%\setlength{\textwidth}{172mm}
+\setlength{\columnsep}{11mm}
+
+%\kanjiskip=.07zw plus.5pt minus.5pt
+
+% 【節が変わるごとに (1.1)(1.2) … (2.1)(2.2) と数式番号をつけるとき】
+%\makeatletter
+%\renewcommand{\theequation}{%
+%\thesection.\arabic{equation}} %\@addtoreset{equation}{section}
+%\makeatother
+
+%\renewcommand{\arraystretch}{0.95} 行間の設定
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{graphicx}   %pLaTeX2e仕様(\documentstyle ->\documentclass)
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage[bb=boondox]{mathalfa}
+\usepackage{listings}
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+\newcommand{\argmin}{\mathop{\rm arg~min}\limits}
+
+\lstset{%
+  language={Python},
+  basicstyle={\small},%
+  identifierstyle={\small},%
+  commentstyle={\small\itshape},%
+  keywordstyle={\small\bfseries},%
+  ndkeywordstyle={\small},%
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},%
+  numbers=left,%
+  xrightmargin=0zw,%
+  xleftmargin=3zw,%
+  numberstyle={\scriptsize},%
+  stepnumber=1,
+  numbersep=1zw,%
+  lineskip=-0.5ex%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+	%bibtex用の設定
+	%\bibliographystyle{ujarticle}
+	\noindent
+
+	\hspace{1em}
+	2020 年 11 月 6 日
+	ゼミ資料
+	\hfill
+	M2 寺内 光
+
+	\vspace{2mm}
+
+	\hrule
+
+	\begin{center}
+		{\Large \bf 進捗報告}
+	\end{center}
+
+	\hrule
+	\vspace{3mm}
+
+	% ここから 文章 Start!
+	\section{今週やったこと}
+	データセット修正，識別タスクの混同行列確認, AAAI への author feedback
+
+  \section{データセット修正}
+  色々いじっているときにサーバにもっていったデータセットが加工前のもの(4コマになっていないものを取り除いていないバージョン)だったことに気づいたので修正し，作品名識別および入れ替え識別の再実験をした．また，識別率のエポック毎のぶれが大きいのでlast acc ではなく best acc をモデルの性能指標とした．
+
+  \section{識別タスクの混同行列確認}
+  漫画の作品名識別をした．表 \ref{tab:num_data} に各作品のデータ数およびクラスラベルを示す．
+
+  \begin{table}[h]
+  	\centering
+  	\caption{各作品の全データおよび対応ラベル}
+  	\label{tab:num_data}
+  	\begin{tabular}{|c||c|c|} \hline
+      作品名&データ数&ラベル \\ \hline
+      少年漫画タッチ&80&0\\ \hline
+      あくはむ&676&1\\ \hline
+      高校の人達&908&2\\ \hline
+      OLランチ&828&3\\ \hline
+      徹さん&520&4\\ \hline
+      幼稚園ぼうえい組&360&5\\ \hline
+  	\end{tabular}
+  \end{table}
+
+  表 \ref{tab:confusion_matrix_comic}, \ref{tab:exp_title_measure} に作品名識別における混同行列および各指標値を示す．
+
+	\begin{table}[h]
+    \begin{center}
+      \caption{作品名画像識別 混同行列}
+      \label{tab:confusion_matrix_comic}
+      \begin{tabular}{|c|c||c|c|c|c|c|c|}\hline
+        \multicolumn{2}{|c||}{}&\multicolumn{6}{|c|}{予測値} \\ \cline{3-8}
+        \multicolumn{2}{|c||}{}&0&1&2&3&4&5 \\ \hline \hline
+        \multirow{5}{*}{真}&0 &8&0&0&0&0&0\\ \cline{2-8}
+        \multirow{5}{*}{値}&1 &0&60&2&2&0&4\\ \cline{2-8}
+                          &2 &0&0&91&0&0&0\\ \cline{2-8}
+                          &3 &0&0&1&82&0&0\\ \cline{2-8}
+                          &4 &0&2&2&3&43&2\\ \cline{2-8}
+                          &5 &0&0&1&0&0&35\\ \hline
+      \end{tabular}
+    \end{center}
+  \end{table}
+
+  \begin{table}[h]
+  	\centering
+  	\caption{作品名識別, 指標}
+  	\vspace{-3mm}
+  	\label{tab:exp_title_measure}
+  	\begin{tabular}{|c|c|c|c|c|} \hline
+  		クラスラベル&Precision&Recall&F-1&サンプル数\\ \hline\hline
+  		0&1.00&1.00&1.00&8\\ \hline
+  		1&0.97&0.88&0.92&68\\ \hline
+  		2&0.94&1.00&0.97&91\\ \hline
+  		3&0.94&0.99&0.96&83\\ \hline
+  		4&1.00&0.83&0.91&52\\ \hline
+      5&0.85&0.97&0.91&36\\ \hline
+  		macro avg&0.95&0.94&0.95&338\\ \hline
+  		weighted avg&0.95&0.94&0.94&338\\ \hline
+  		accuracy&&&&0.9438\\ \hline
+  	\end{tabular}
+  \end{table}
+
+  全体的に極端に識別率の低い作品は見られなかった．あくはむと幼稚園ぼうえい組の誤識別が起きているのはもっともらしい結果っぽい...？ひとまず作品名識別の方のベースラインはこれで確定したい．
+
+  表 \ref{tab:confusion_matrix_fourscene}, \ref{tab:exp_fourscene_measure} に入れ替え識別における混同行列および各指標値を示す．
+
+  \begin{table}[h]
+  	\begin{center}
+  		\caption{入れ替え識別 混同行列}
+  		\label{tab:confusion_matrix_fourscene}
+  		\vspace{-4mm}
+  		\begin{tabular}{|c|c||c|c|c|}\hline
+  			\multicolumn{2}{|c||}{}&\multicolumn{3}{|c|}{予測値} \\ \cline{3-5}
+  			\multicolumn{2}{|c||}{}&0&1&2 \\ \hline \hline
+  			\multirow{2}{*}{真}&0 &39&36&10\\ \cline{2-5}
+  			\multirow{2}{*}{値}&1 &16&69&0\\ \cline{2-5}
+  			&2 &0&0&85\\ \hline
+  		\end{tabular}
+  	\end{center}
+  \end{table}
+
+  \begin{table}[h]
+  	\centering
+  	\caption{入れ替え識別, 指標}
+  	\vspace{-3mm}
+  	\label{tab:exp_fourscene_measure}
+  	\begin{tabular}{|c|c|c|c|c|} \hline
+  		クラスラベル&Precision&Recall&F-1&サンプル数\\ \hline\hline
+  		0&0.71&0.46&0.56&85\\ \hline
+  		1&0.66&0.81&0.73&85\\ \hline
+  		2&0.89&1.00&0.94&85\\ \hline
+  		macro avg&0.75&0.76&0.74&268\\ \hline
+  		accuracy&&&&0.7569\\ \hline
+  	\end{tabular}
+  \end{table}
+
+  データセットを直したことで入れ替え識別においてはかなり精度が向上していることが確認できる．(先週は0.6程度)
+  先週の予想にもあった通り，作品の違うものから入れ替えたクラス 2 における F-1 スコアは 0.94 とかなり高くなっていることがわかる．ただ，同作品間の入れ替えよりも入れ替えなしのクラスの F-1 スコアが低くなっているのは予想を外れていた．クラス0と1の識別がうまくできていないので，LSTM が画像情報のみを用いてストーリー性というメタな情報をまだ学習できていないのではないかと考えられる(そもそもきれいに4コマでストーリーが完結しているとは限らない)．これに関しては実際の誤識別データを見て分析する必要あり．
+
+  表 \ref{tab:result_experiments} に結果を示す．
+  \begin{table}[h]
+		\centering
+		\caption{作品名識別, 入れ替え識別 Test accuracy(\%)}
+		\label{tab:result_experiments}
+		\begin{tabular}{l||c c c} \hline
+		  &Baseline&Baseline(Cutout)&TDGA AA\\ \hline
+      作品名識別&- &95.03$\pm$1.05&-\\
+      入れ替え識別&- &75.92$\pm$0.53&-\\
+		\end{tabular}
+	\end{table}
+
+  \section{AAAI への author feedback}
+  12/1 の Notification 待ち．
+
+
+  \section{来週のタスク}
+  研究会資料作成，漫画データセットへの TDGA 適用実験
+
+	% 参考文献リスト
+	% \bibliographystyle{unsrt}
+	% \bibliography{2020_10_30}
+\end{document}
